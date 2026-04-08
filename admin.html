@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Marketing Dashboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+body{
+  background:url('./di1.webp') no-repeat center/cover;
+}
+
+/* OVERLAY */
+body::before{
+  content:'';
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  z-index:0;
+}
+
+/* LAYOUT */
+.dashboard{
+  display:flex;
+  min-height:100vh;
+  position:relative;
+  z-index:1;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter:blur(20px);
+  padding:20px;
+  color:#fff;
+}
+
+.sidebar h2{
+  text-align:center;
+  margin-bottom:30px;
+  color:#00ffd5;
+}
+
+.sidebar a{
+  display:flex;
+  gap:10px;
+  padding:12px;
+  margin:8px 0;
+  border-radius:10px;
+  color:#ccc;
+  text-decoration:none;
+  transition:0.3s;
+}
+.sidebar a:hover{
+  background:rgba(0,255,255,0.2);
+  color:#00ffd5;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  padding:20px;
+}
+
+/* TOPBAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(255,255,255,0.05);
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+
+.logo{height:40px;}
+
+.user{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+/* CARDS */
+.cards{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.card{
+  flex:1;
+  min-width:250px;
+  padding:20px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  color:#fff;
+}
+
+.card h3{color:#00ffd5;margin-bottom:10px;}
+
+/* CHARTS */
+.charts{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+canvas{
+  background:rgba(255,255,255,0.05);
+  border-radius:10px;
+  padding:10px;
+}
+
+/* BUTTONS */
+.quick{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  margin:20px 0;
+}
+.quick button{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:#00ffd5;
+  cursor:pointer;
+}
+
+/* TABLE */
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+td,th{
+  padding:10px;
+  border-bottom:1px solid #333;
+}
+
+/* RESPONSIVE */
+@media(max-width:992px){
+  .dashboard{flex-direction:column;}
+  .sidebar{width:100%;display:flex;overflow:auto;}
+  .sidebar a{flex:1;justify-content:center;}
+  .cards,.charts{flex-direction:column;}
+}
+
+@media(max-width:768px){
+  .topbar{flex-direction:column;gap:10px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>StacklyDigital</h2>
+  <!-- <a href="./admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a> -->
+  <a href="./admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+  <a href="./users.html"><i class="fas fa-user"></i> Users</a>
+  <a href="./incident.html"><i class="fas fa-bug"></i> Incidents</a>
+  <a href="./reports.html"><i class="fas fa-file-alt"></i> Reports</a>
+  <a href="./settings.html"><i class="fas fa-cog"></i> Settings</a>
+  <a href="./login.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="logo">
+  <div class="user">
+    <i class="fas fa-user-circle"></i>
+    <span>Admin</span>
+  </div>
+</div>
+
+<!-- CARDS -->
+<div class="cards">
+  <div class="card">
+    <h3>Total Leads</h3>
+    <p>1,250</p>
+  </div>
+  <div class="card">
+    <h3>Active Campaigns</h3>
+    <p>32</p>
+  </div>
+  <div class="card">
+    <h3>Conversion Rate</h3>
+    <p>8.4%</p>
+  </div>
+  <div class="card">
+    <h3>Revenue</h3>
+    <p>$12,500</p>
+  </div>
+</div>
+
+<!-- QUICK ACTIONS -->
+<div class="quick">
+  <button>+ New Campaign</button>
+  <button>Add Leads</button>
+  <button>Generate Report</button>
+</div>
+
+<!-- CHARTS -->
+<div class="charts">
+
+  <div class="card">
+    <h3>Traffic Sources</h3>
+    <canvas id="pie"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>Campaign Performance</h3>
+    <canvas id="bar"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>Monthly Growth</h3>
+    <canvas id="line"></canvas>
+  </div>
+
+</div>
+
+<!-- TABLE -->
+<div class="card">
+  <h3>Recent Leads</h3>
+  <table>
+    <tr><th>Name</th><th>Email</th><th>Status</th></tr>
+    <tr><td>John</td><td>john@mail.com</td><td>Converted</td></tr>
+    <tr><td>Alice</td><td>alice@mail.com</td><td>Pending</td></tr>
+    <tr><td>David</td><td>david@mail.com</td><td>Lost</td></tr>
+  </table>
+</div>
+
+</div>
+</div>
+
+<script>
+
+// PIE
+new Chart(document.getElementById('pie'),{
+type:'pie',
+data:{
+labels:['SEO','Ads','Social','Email'],
+datasets:[{data:[40,25,20,15],
+backgroundColor:['#00ffd5','#ff00ff','#00ffff','#ffaa00']}]
+}});
+
+// BAR
+new Chart(document.getElementById('bar'),{
+type:'bar',
+data:{
+labels:['Jan','Feb','Mar','Apr'],
+datasets:[{label:'Leads',data:[200,300,250,400],
+backgroundColor:'#00ffd5'}]
+}});
+
+// LINE
+new Chart(document.getElementById('line'),{
+type:'line',
+data:{
+labels:['Jan','Feb','Mar','Apr'],
+datasets:[{label:'Growth',data:[5,10,7,15],
+borderColor:'#00ffd5',
+tension:0.4}]
+}});
+
+</script>
+
+</body>
+</html>

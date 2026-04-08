@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Marketing Reports Dashboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body, html { height:100%; }
+
+body {
+  background: url('./h1.webp') no-repeat center center/cover;
+}
+body::before {
+  content:''; position:absolute; top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.6); z-index:0;
+}
+
+.dashboard { display:flex; position:relative; z-index:1; height:100vh; }
+
+/* Sidebar */
+.sidebar {
+  width:250px; background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(15px); color:#fff;
+  display:flex; flex-direction:column; padding:20px;
+}
+.sidebar h2 {
+  text-align:center; color:#d2ff28;
+  margin-bottom:30px; text-shadow:0 0 10px #d2ff28;
+}
+.sidebar a {
+  text-decoration:none; color:#c0c0c0;
+  margin:10px 0; padding:10px;
+  border-radius:8px; display:flex; align-items:center;
+  transition:0.3s;
+}
+.sidebar a i { margin-right:10px; }
+.sidebar a:hover {
+  background: rgba(0,255,255,0.2);
+  color:#d2ff28;
+}
+
+/* Main */
+.main { flex:1; display:flex; flex-direction:column; padding:20px; overflow-y:auto; }
+
+/* Topbar */
+.topbar {
+  display:flex; justify-content:space-between; align-items:center;
+  background: rgba(255,255,255,0.05);
+  padding:15px 20px; border-radius:10px;
+  backdrop-filter: blur(10px);
+  margin-bottom:20px;
+}
+.user-info { display:flex; align-items:center; gap:10px; color:#c0c0c0; }
+.user-info i { color:#d2ff28; }
+.logo { height:40px; }
+
+/* Cards */
+.cards { display:flex; gap:20px; flex-wrap:wrap; margin-bottom:20px; }
+.card {
+  flex:1; min-width:220px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius:15px;
+  padding:20px;
+  color:#fff;
+}
+.card h3 { margin-bottom:10px; color:#d2ff28; }
+
+/* Charts */
+.charts { display:flex; gap:20px; flex-wrap:wrap; }
+canvas {
+  background: rgba(255,255,255,0.05);
+  border-radius:15px;
+  padding:10px;
+}
+
+/* Filters */
+.filters { display:flex; flex-wrap:wrap; gap:10px; margin:20px 0; }
+.filters input {
+  flex:1; padding:10px;
+  border-radius:8px; border:none;
+  background: rgba(255,255,255,0.05);
+  color:#fff;
+}
+.filters button {
+  padding:10px; border:none;
+  border-radius:8px; cursor:pointer;
+  background:#00ffff; color:#000;
+  font-weight:bold;
+}
+
+/* Table */
+table {
+  width:100%; border-collapse:collapse;
+  background: rgba(255,255,255,0.05);
+  color:#fff;
+}
+th, td { padding:10px; }
+th { background: rgba(0,255,255,0.2); }
+
+.badge { padding:5px 10px; border-radius:5px; color:#000; }
+.active { background:#00ff99; }
+.paused { background:orange; }
+.completed { background:green; }
+
+/* Responsive */
+@media(max-width:992px){
+  .dashboard{flex-direction:column;}
+  .sidebar{width:100%; flex-direction:row; overflow:auto;}
+  .sidebar h2{display:none;}
+  .sidebar a{flex:1; justify-content:center;}
+  .cards, .charts{flex-direction:column;}
+}
+
+@media(max-width:768px){
+  table{display:block; overflow-x:auto;}
+  canvas{height:250px !important;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- Sidebar -->
+<div class="sidebar">
+<h2>Marketing Panel</h2>
+<a href="./admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <a href="./users.html"><i class="fas fa-user"></i> Users</a>
+    <a href="./incident.html"><i class="fas fa-bug"></i> Incidents</a>
+    <a href="./reports.html"><i class="fas fa-file-alt"></i> Reports</a>
+    <a href="./settings.html"><i class="fas fa-cog"></i> Settings</a>
+    <a href="./login.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+<div class="topbar">
+<img src="./logo.webp" class="logo">
+<div class="user-info">
+<i class="fas fa-user-circle"></i>
+<span id="username">Admin</span>
+<span id="email">admin@mail.com</span>
+</div>
+</div>
+
+<!-- Cards -->
+<div class="cards">
+<div class="card"><h3>Total Campaigns</h3><p>42</p></div>
+<div class="card"><h3>Active Ads</h3><p>18</p></div>
+<div class="card"><h3>Total Leads</h3><p>1,240</p></div>
+<div class="card"><h3>Conversion Rate</h3><p>8.5%</p></div>
+</div>
+
+<!-- Charts -->
+<div class="charts">
+
+<div class="card">
+<h3>Traffic Sources</h3>
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="card">
+<h3>Monthly Leads</h3>
+<canvas id="lineChart"></canvas>
+</div>
+
+<div class="card">
+<h3>Ad Performance</h3>
+<canvas id="barChart"></canvas>
+</div>
+
+</div>
+
+<!-- Filters -->
+<div class="filters">
+<input type="text" id="searchInput" placeholder="Search Campaigns...">
+<button onclick="exportCSV()">Export CSV</button>
+<button onclick="exportPDF()">Export PDF</button>
+</div>
+
+<!-- Table -->
+<table id="reportTable">
+<thead>
+<tr>
+<th>ID</th>
+<th>Campaign</th>
+<th>Status</th>
+<th>Platform</th>
+<th>Leads</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>#C101</td>
+<td>Facebook Ads</td>
+<td><span class="badge active">Active</span></td>
+<td>Meta</td>
+<td>320</td>
+<td>2026-03-22</td>
+</tr>
+
+<tr>
+<td>#C102</td>
+<td>Google Ads</td>
+<td><span class="badge paused">Paused</span></td>
+<td>Google</td>
+<td>210</td>
+<td>2026-03-21</td>
+</tr>
+
+<tr>
+<td>#C103</td>
+<td>SEO Campaign</td>
+<td><span class="badge completed">Completed</span></td>
+<td>Organic</td>
+<td>500</td>
+<td>2026-03-20</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+</div>
+
+<script>
+
+// Charts
+new Chart(document.getElementById('pieChart'), {
+type:'pie',
+data:{
+labels:['Social Media','Google','SEO','Email'],
+datasets:[{
+data:[40,30,20,10],
+backgroundColor:['#00ffff','#0077ff','#ff00ff','#ff5555']
+}]
+}
+});
+
+new Chart(document.getElementById('lineChart'), {
+type:'line',
+data:{
+labels:['Jan','Feb','Mar','Apr','May'],
+datasets:[{
+label:'Leads',
+data:[100,200,150,300,400],
+borderColor:'#00ffff',
+tension:0.4
+}]
+}
+});
+
+new Chart(document.getElementById('barChart'), {
+type:'bar',
+data:{
+labels:['FB','Google','SEO','Email'],
+datasets:[{
+label:'Performance',
+data:[80,70,60,50],
+backgroundColor:['#00ffff','#0077ff','#ff00ff','#ff5555']
+}]
+}
+});
+
+// Search
+document.getElementById('searchInput').addEventListener('input', function(){
+const value=this.value.toLowerCase();
+document.querySelectorAll('#reportTable tbody tr').forEach(row=>{
+row.style.display=row.textContent.toLowerCase().includes(value)?'':'none';
+});
+});
+
+// Export
+function exportCSV(){ alert("CSV Export coming soon"); }
+function exportPDF(){ alert("PDF Export coming soon"); }
+
+</script>
+
+</body>
+</html>

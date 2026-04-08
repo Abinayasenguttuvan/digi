@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Marketing Dashboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+  background: url('./di1.webp') no-repeat center center/cover;
+  color:black;
+}
+
+.dashboard{display:flex;min-height:100vh;}
+
+/* Sidebar */
+.sidebar{
+  width:250px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(20px);
+  padding:20px;
+}
+.sidebar h2{
+  text-align:center;
+  color:#00ffd5;
+  margin-bottom:30px;
+}
+.sidebar a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  margin:10px 0;
+  text-decoration:none;
+  color:black;
+  border-radius:10px;
+  transition:0.3s;
+}
+.sidebar a:hover{
+  background:#00ffd5;
+  color:#000;
+}
+
+/* Main */
+.main{flex:1;padding:20px;}
+
+/* Topbar */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(255,255,255,0.05);
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+/* Cards */
+.cards{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.card{
+  flex:1;
+  min-width:220px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(20px);
+  padding:20px;
+  border-radius:15px;
+}
+.card h3{color:#00ffd5;margin-bottom:10px;}
+
+/* Charts */
+.charts{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+canvas{
+  background:rgba(255,255,255,0.05);
+  border-radius:15px;
+  padding:10px;
+}
+
+/* Filters */
+.filter-tabs{
+  margin:20px 0;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.filter-tabs button{
+  padding:8px 15px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.05);
+  color:#ccc;
+}
+.filter-tabs button.active,
+.filter-tabs button:hover{
+  background:#00ffd5;
+  color:#000;
+}
+
+/* Table */
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:rgba(255,255,255,0.05);
+  border-radius:10px;
+  overflow:hidden;
+}
+th,td{padding:10px;}
+th{background:#00ffd5;color:#000;}
+tr:nth-child(even){background:rgba(255,255,255,0.05);}
+
+/* Badges */
+.badge{
+  padding:5px 10px;
+  border-radius:5px;
+  font-weight:bold;
+  color:#000;
+}
+.active{background:#00ff88;}
+.paused{background:orange;}
+.completed{background:#00aaff;}
+
+/* Responsive */
+@media(max-width:992px){
+  .dashboard{flex-direction:column;}
+  .sidebar{
+    width:100%;
+    display:flex;
+    overflow-x:auto;
+  }
+  .sidebar h2{display:none;}
+  .sidebar a{flex:1;justify-content:center;}
+  .cards,.charts{flex-direction:column;}
+}
+
+@media(max-width:600px){
+  .topbar{flex-direction:column;gap:10px;}
+  table{display:block;overflow-x:auto;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>StacklyDigital</h2>
+  <a href="./admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <a href="./users.html"><i class="fas fa-user"></i> Users</a>
+    <a href="./incident.html"><i class="fas fa-bug"></i> Incidents</a>
+    <a href="./reports.html"><i class="fas fa-file-alt"></i> Reports</a>
+    <a href="./settings.html"><i class="fas fa-cog"></i> Settings</a>
+    <a href="./login.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+<div class="topbar">
+  <h3>Marketing Dashboard</h3>
+  <div><i class="fas fa-user-circle"></i> Admin</div>
+</div>
+
+<!-- Cards -->
+<div class="cards">
+  <div class="card"><h3>Total Campaigns</h3><p>24</p></div>
+  <div class="card"><h3>Total Leads</h3><p>1,240</p></div>
+  <div class="card"><h3>Conversions</h3><p>320</p></div>
+  <div class="card"><h3>Revenue</h3><p>$8,500</p></div>
+</div>
+
+<!-- Charts -->
+<div class="charts">
+  <div class="card" style="flex:1">
+    <h3>Traffic Sources</h3>
+    <canvas id="pieChart"></canvas>
+  </div>
+
+  <div class="card" style="flex:1">
+    <h3>Monthly Leads</h3>
+    <canvas id="barChart"></canvas>
+  </div>
+</div>
+
+<!-- Filters -->
+<div class="filter-tabs">
+  <button class="active" onclick="filterTable('all')">All</button>
+  <button onclick="filterTable('active')">Active</button>
+  <button onclick="filterTable('paused')">Paused</button>
+  <button onclick="filterTable('completed')">Completed</button>
+</div>
+
+<!-- Campaign Table -->
+<table id="campaignTable">
+<thead>
+<tr>
+<th>ID</th>
+<th>Campaign</th>
+<th>Status</th>
+<th>Leads</th>
+<th>Budget</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+<tr data-status="active">
+<td>#C101</td><td>SEO Boost</td>
+<td><span class="badge active">Active</span></td>
+<td>320</td><td>$1000</td><td>2026-03-20</td>
+</tr>
+
+<tr data-status="paused">
+<td>#C102</td><td>Google Ads</td>
+<td><span class="badge paused">Paused</span></td>
+<td>210</td><td>$800</td><td>2026-03-18</td>
+</tr>
+
+<tr data-status="completed">
+<td>#C103</td><td>Instagram Ads</td>
+<td><span class="badge completed">Completed</span></td>
+<td>450</td><td>$1200</td><td>2026-03-15</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+<script>
+
+/* Charts */
+new Chart(document.getElementById('pieChart'),{
+type:'pie',
+data:{
+labels:['SEO','Ads','Social Media','Email'],
+datasets:[{
+data:[40,25,20,15],
+backgroundColor:['#00ffd5','#00aaff','#ff00ff','#ffaa00']
+}]
+}
+});
+
+new Chart(document.getElementById('barChart'),{
+type:'bar',
+data:{
+labels:['Jan','Feb','Mar','Apr','May','Jun'],
+datasets:[{
+label:'Leads',
+data:[120,190,150,220,300,260],
+backgroundColor:'#00ffd5'
+}]
+}
+});
+
+/* Filter */
+function filterTable(status){
+const rows=document.querySelectorAll('#campaignTable tbody tr');
+
+rows.forEach(row=>{
+if(status==='all'){
+row.style.display='';
+}else{
+row.style.display=row.dataset.status===status?'':'none';
+}
+});
+
+document.querySelectorAll('.filter-tabs button')
+.forEach(btn=>btn.classList.remove('active'));
+
+event.target.classList.add('active');
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Dashboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{
+  background:url('./di1.webp') no-repeat center/cover;
+}
+body::before{
+  content:'';
+  position:fixed;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.7);
+}
+
+.dashboard{display:flex;min-height:100vh;position:relative;z-index:1}
+
+/* Sidebar */
+.sidebar{
+  width:240px;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter:blur(15px);
+  padding:20px;
+  color:#fff;
+}
+.sidebar h2{
+  color:#d2ff28;
+  text-align:center;
+  margin-bottom:20px;
+}
+.sidebar a{
+  display:block;
+  padding:10px;
+  margin:8px 0;
+  color:#ccc;
+  text-decoration:none;
+  border-radius:8px;
+}
+.sidebar a:hover{
+  background:#00ffff33;
+  color:#d2ff28;
+}
+
+/* Main */
+.main{flex:1;padding:20px;overflow:auto}
+
+/* Topbar */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+.user{color:#ccc}
+
+/* Cards */
+.cards{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.card{
+  flex:1;
+  min-width:200px;
+  background:rgba(255,255,255,0.05);
+  padding:15px;
+  border-radius:12px;
+  color:#fff;
+}
+.card h3{color:#d2ff28}
+
+/* Charts */
+.charts{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+canvas{
+  background:rgba(255,255,255,0.05);
+  border-radius:10px;
+}
+
+/* Table */
+table{
+  width:100%;
+  margin-top:20px;
+  border-collapse:collapse;
+  color:#fff;
+}
+th,td{padding:10px}
+th{background:#00ffff33}
+
+/* Buttons */
+button{
+  padding:8px 10px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* Responsive */
+@media(max-width:992px){
+  .dashboard{flex-direction:column}
+  .sidebar{width:100%;display:flex;overflow:auto}
+  .sidebar a{flex:1;text-align:center}
+}
+
+@media(max-width:768px){
+  .cards,.charts{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>StacklyDigital</h2>
+  <a href="./client.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <a href="./alert.html"><i class="fas fa-bell"></i> Alerts</a>
+    <a href="./report.html"><i class="fas fa-file-alt"></i> Reports</a>
+    <a href="./profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a href="./login.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+<!-- Topbar -->
+<div class="topbar">
+  <h2>Digital Marketing Dashboard</h2>
+  <div class="user">
+    <span id="username">User</span> |
+    <span id="email">email</span>
+  </div>
+</div>
+
+<!-- Cards -->
+<div class="cards">
+  <div class="card"><h3>Total Leads</h3><p>1200</p></div>
+  <div class="card"><h3>Active Campaigns</h3><p>12</p></div>
+  <div class="card"><h3>Website Traffic</h3><p>45K</p></div>
+  <div class="card"><h3>ROI</h3><p>320%</p></div>
+</div>
+
+<!-- Charts -->
+<div class="charts">
+  <div class="card">
+    <h3>Traffic Sources</h3>
+    <canvas id="pieChart"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>Campaign Performance</h3>
+    <canvas id="lineChart"></canvas>
+  </div>
+</div>
+
+<!-- Campaign Table -->
+<table>
+<thead>
+<tr>
+<th>Campaign</th>
+<th>Platform</th>
+<th>Status</th>
+<th>Leads</th>
+<th>Actions</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>SEO Boost</td>
+<td>Google</td>
+<td>Active</td>
+<td>300</td>
+<td><button onclick="go404()">View</button></td>
+</tr>
+
+<tr>
+<td>Instagram Ads</td>
+<td>Meta</td>
+<td>Running</td>
+<td>450</td>
+<td><button onclick="go404()">View</button></td>
+</tr>
+
+<tr>
+<td>Email Marketing</td>
+<td>Email</td>
+<td>Paused</td>
+<td>150</td>
+<td><button onclick="go404()">View</button></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+<script>
+// USER
+const user = JSON.parse(localStorage.getItem('loggedUser') || sessionStorage.getItem('loggedUser'));
+
+if(user){
+  document.getElementById('username').textContent = user.accountType;
+  document.getElementById('email').textContent = user.email;
+}
+
+// LOGOUT
+function logout(){
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.href="login.html";
+}
+
+// 404 REDIRECT
+function go404(){
+  window.location.href="404.html";
+}
+
+// PIE CHART
+new Chart(document.getElementById('pieChart'),{
+  type:'pie',
+  data:{
+    labels:['Organic','Ads','Social','Email'],
+    datasets:[{
+      data:[40,30,20,10],
+      backgroundColor:['#00ffff','#ff00ff','#ffff00','#00ff99']
+    }]
+  }
+});
+
+// LINE CHART
+new Chart(document.getElementById('lineChart'),{
+  type:'line',
+  data:{
+    labels:['Jan','Feb','Mar','Apr','May'],
+    datasets:[{
+      label:'Leads',
+      data:[200,300,250,400,500],
+      borderColor:'#00ffff',
+      tension:0.4
+    }]
+  }
+});
+</script>
+
+</body>
+</html>

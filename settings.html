@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Settings - StacklyDigital</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:url('./di1.webp') no-repeat center/cover;
+  min-height:100vh;
+  color:#fff;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  z-index:0;
+}
+
+.dashboard{
+  display:flex;
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(20px);
+  padding:20px;
+}
+
+.sidebar h2{
+  text-align:center;
+  color:#00f7ff;
+  margin-bottom:25px;
+}
+
+.sidebar a{
+  display:flex;
+  gap:10px;
+  padding:10px;
+  margin:8px 0;
+  color:#ccc;
+  text-decoration:none;
+  border-radius:8px;
+  transition:0.3s;
+}
+
+.sidebar a:hover{
+  background:rgba(0,255,255,0.15);
+  color:#00f7ff;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  padding:20px;
+}
+
+/* TOPBAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  background:rgba(255,255,255,0.05);
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+/* SECTION */
+.section{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:20px;
+  box-shadow:0 0 20px rgba(0,255,255,0.15);
+}
+
+.section h3{
+  margin-bottom:15px;
+  color:#00f7ff;
+}
+
+/* INPUT */
+input{
+  width:100%;
+  padding:10px;
+  margin-bottom:15px;
+  border-radius:8px;
+  border:none;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+}
+
+/* BUTTON */
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  background:#00f7ff;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* ERROR MESSAGE */
+.error{
+  color:red;
+  font-size:14px;
+  margin-bottom:10px;
+  display:none;
+}
+
+/* TOGGLE */
+.toggle{
+  position:relative;
+  display:inline-block;
+  width:50px;
+  height:24px;
+}
+
+.toggle input{
+  opacity:0;
+}
+
+.slider{
+  position:absolute;
+  top:0; left:0; right:0; bottom:0;
+  background:#ccc;
+  border-radius:24px;
+}
+
+.slider:before{
+  content:'';
+  position:absolute;
+  width:18px;
+  height:18px;
+  left:3px;
+  bottom:3px;
+  background:#fff;
+  border-radius:50%;
+  transition:0.3s;
+}
+
+input:checked + .slider{
+  background:#00f7ff;
+}
+
+input:checked + .slider:before{
+  transform:translateX(26px);
+}
+
+/* RESPONSIVE */
+@media(max-width:992px){
+  .dashboard{flex-direction:column;}
+  .sidebar{width:100%; display:flex; overflow-x:auto;}
+  .sidebar h2{display:none;}
+  .sidebar a{flex:1; justify-content:center;}
+}
+
+@media(max-width:768px){
+  .topbar{flex-direction:column; gap:10px;}
+  button{width:100%;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>StacklyDigital</h2>
+  <a href="./admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <a href="./users.html"><i class="fas fa-user"></i> Users</a>
+    <a href="./incident.html"><i class="fas fa-bug"></i> Incidents</a>
+    <a href="./reports.html"><i class="fas fa-file-alt"></i> Reports</a>
+    <a href="./settings.html"><i class="fas fa-cog"></i> Settings</a>
+    <a href="./login.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="topbar">
+  <h2>Marketing Settings</h2>
+</div>
+
+<!-- BRAND -->
+<div class="section" id="brandSection">
+  <h3>Brand Information</h3>
+  <div class="error">⚠ Please fill all details</div>
+  <input type="text" placeholder="Brand Name">
+  <input type="text" placeholder="Website URL">
+  <input type="email" placeholder="Business Email">
+  <button onclick="validateAndRedirect('brandSection')">Save Changes</button>
+</div>
+
+<!-- SOCIAL -->
+<div class="section" id="socialSection">
+  <h3>Social Media Integration</h3>
+  <div class="error">⚠ Please fill all details</div>
+  <input type="text" placeholder="Facebook URL">
+  <input type="text" placeholder="Instagram Profile">
+  <input type="text" placeholder="LinkedIn Profile">
+  <button onclick="validateAndRedirect('socialSection')">Connect Accounts</button>
+</div>
+
+<!-- CAMPAIGN -->
+<div class="section">
+  <h3>Campaign Preferences</h3>
+  <p>Email Campaigns</p>
+  <label class="toggle">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </label>
+
+  <br><br>
+
+  <p>SMS Marketing</p>
+  <label class="toggle">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<!-- DISPLAY -->
+<div class="section">
+  <h3>Display Settings</h3>
+  <p>Dark Mode</p>
+  <label class="toggle">
+    <input type="checkbox" id="darkToggle">
+    <span class="slider"></span>
+  </label>
+</div>
+
+</div>
+</div>
+
+<script>
+
+// VALIDATION FUNCTION
+function validateAndRedirect(sectionId){
+
+  const section = document.getElementById(sectionId);
+  const inputs = section.querySelectorAll("input");
+  const error = section.querySelector(".error");
+
+  let isValid = true;
+
+  inputs.forEach(input=>{
+    if(input.type !== "checkbox" && input.value.trim() === ""){
+      isValid = false;
+      input.style.border = "1px solid red";
+    } else {
+      input.style.border = "none";
+    }
+  });
+
+  if(isValid){
+    window.location.href = "404.html";
+  } else {
+    error.style.display = "block";
+  }
+}
+
+// DARK MODE
+document.getElementById('darkToggle').addEventListener('change', function(){
+  document.body.style.background = this.checked ? "#111" : "url('./h1.webp') no-repeat center/cover";
+});
+
+</script>
+
+</body>
+</html>
