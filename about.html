@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly digital marketing </title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<!-- Animate -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif;}
+  
+  /* THEME VARIABLES */
+  :root{
+    --bg:#ffffff;
+    --text:#0f172a;
+    --glass:rgba(255,255,255,0.6);
+    --border:rgba(255,255,255,0.3);
+    --accent:#00ff99;
+  }
+  
+  body.dark{
+    --bg:#020617;
+    --text:#e2e8f0;
+    --glass:rgba(15,23,42,0.7);
+    --border:rgba(255,255,255,0.1);
+  }
+  
+  body{
+    background:var(--bg);
+    color:var(--text);
+    transition:0.3s;
+  }
+  
+  /* HEADER */
+  header{
+    position:fixed;
+    top:0;left:0;width:100%;
+    background:var(--glass);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    box-shadow:0 8px 30px rgba(0,0,0,0.05);
+    z-index:1000;
+    transition:0.3s;
+  }
+  
+  /* SHRINK */
+  header.shrink{
+    padding:5px 0;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+  }
+  
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 40px;
+    position:relative;
+  }
+  
+  /* LOGO */
+  .logo img{height:40px;}
+  
+  /* NAV */
+  .nav-links{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:30px;
+  }
+  
+  .nav-links a{
+    text-decoration:none;
+    color:var(--text);
+    font-weight:500;
+    position:relative;
+  }
+  
+  .nav-links a:hover,
+  .nav-links a.active{
+    color:var(--accent);
+  }
+  
+  .nav-links a:hover::after,
+  .nav-links a.active::after{
+    content:"";
+    position:absolute;
+    bottom:-6px;
+    left:0;
+    width:100%;
+    height:2px;
+    background:var(--accent);
+  }
+  
+  /* RIGHT */
+  .right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  
+  .btn{
+    padding:8px 18px;
+    border-radius:30px;
+    border:none;
+    cursor:pointer;
+    font-size:14px;
+    transition:0.3s;
+  }
+  
+  .login{
+    background:transparent;
+    border:1px solid var(--accent);
+    color:var(--accent);
+  }
+  
+  .login:hover{
+    background:var(--accent);
+    color:black;
+  }
+  
+  .register{
+    background:var(--accent);
+    color:black;
+  }
+  
+  /* DARK MODE BUTTON */
+  .theme-toggle{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    background:var(--accent);
+    color:black;
+    font-size:16px;
+  }
+  
+  /* MENU */
+  .menu-toggle{
+    display:none;
+    font-size:22px;
+    cursor:pointer;
+  }
+  
+  /* MOBILE MENU */
+  .mobile-menu{
+    position:fixed;
+    top:0;left:-100%;
+    width:260px;height:100vh;
+    background:var(--bg);
+    padding:20px;
+    transition:0.3s;
+    z-index:2000;
+  }
+  
+  .mobile-menu.active{left:0;}
+  
+  .mobile-menu a{
+    display:block;
+    margin:15px 0;
+    text-decoration:none;
+    color:var(--text);
+  }
+  
+  /* OVERLAY */
+  .overlay{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.4);
+    display:none;
+    z-index:1500;
+  }
+  
+  .overlay.active{display:block;}
+  
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .right{display:none;}
+    .menu-toggle{display:block;}
+  }
+  
+  @media(max-width:576px){
+    .navbar{padding:15px;}
+  }
+  </style>
+  
+  <header id="header">
+    <div class="navbar">
+  
+      <div class="menu-toggle" onclick="toggleMenu()">
+        ☰
+      </div>
+  
+      <div class="logo">
+        <a href="./index.html">
+          <img src="./logo.webp" alt="Stackly">
+        </a>
+      </div>
+  
+      <div class="nav-links">
+        <a href="./index.html">HOME</a>
+    <a href="./about.html">ABOUT</a>
+    <a href="./service.html">SERVICE</a>
+    
+    <a href="./contact.html">CONTACT</a>
+      </div>
+  
+      <div class="right">
+        <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+        <button class="btn login" onclick="location.href='login.html'">Login</button>
+        <button class="btn register" onclick="location.href='register.html'">Register</button>
+      </div>
+  
+    </div>
+  </header>
+  
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="./index.html">HOME</a>
+    <a href="./about.html">ABOUT</a>
+    <a href="./service.html">SERVICE</a>
+    
+    <a href="./contact.html">CONTACT</a>
+    <hr>
+    <a href="./login.html">Login</a>
+    <a href="./register.html">Register</a>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+  
+  <script>
+  // MENU
+  function toggleMenu(){
+    mobileMenu.classList.toggle("active");
+    overlay.classList.toggle("active");
+  }
+  
+  overlay.onclick=()=>{
+    mobileMenu.classList.remove("active");
+    overlay.classList.remove("active");
+  };
+  
+  // SHRINK
+  window.addEventListener("scroll",()=>{
+    header.classList.toggle("shrink",window.scrollY>50);
+  });
+  
+  // DARK MODE
+  function toggleTheme(){
+    document.body.classList.toggle("dark");
+  
+    const icon = document.querySelector(".theme-toggle");
+    if(document.body.classList.contains("dark")){
+      icon.textContent="☀️";
+    }else{
+      icon.textContent="🌙";
+    }
+  }
+  </script>
+    
+    </body>
+<section class="faqhero-section">
+
+    <!-- OVERLAY -->
+    <div class="faqhero-overlay"></div>
+  
+    <div class="faqhero-container faqhero-reveal">
+  
+      <!-- HEADING -->
+      <h1 class="faqhero-title">ABOUT</h1>
+  
+      <!-- SUBTEXT -->
+      <!-- <p class="faqhero-sub">Find answers to your questions about our IT services</p> -->
+  
+      <!-- BREADCRUMB -->
+      <div class="faqhero-breadcrumb">
+        <a href="./index.html">Home</a>
+        <span>→</span>
+        <span class="active">ABOUT</span>
+      </div>
+  
+    </div>
+  
+  </section>
+
+  <Style>
+    /* SECTION */
+.faqhero-section{
+  position:relative;
+  height:60vh;
+  min-height:400px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+  overflow:hidden;
+
+  background:url("./di1.webp") center/cover no-repeat;
+}
+
+/* OVERLAY */
+.faqhero-overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,255,150,0.2));
+  backdrop-filter:blur(4px);
+}
+
+/* CONTAINER */
+.faqhero-container{
+  position:relative;
+  z-index:2;
+  padding:20px;
+}
+
+/* TITLE */
+.faqhero-title{
+  font-size:64px;
+  font-weight:700;
+  letter-spacing:2px;
+  margin-bottom:10px;
+  text-shadow:0 0 20px #00ffcc;
+}
+
+/* SUBTEXT */
+.faqhero-sub{
+  font-size:18px;
+  opacity:0.9;
+  margin-bottom:20px;
+}
+
+/* BREADCRUMB */
+.faqhero-breadcrumb{
+  display:inline-flex;
+  gap:10px;
+  padding:10px 25px;
+  border-radius:50px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 15px rgba(0,255,150,0.4);
+}
+
+.faqhero-breadcrumb a{
+  color:#00ffcc;
+  text-decoration:none;
+}
+
+.faqhero-breadcrumb span{
+  opacity:0.8;
+}
+
+.faqhero-breadcrumb .active{
+  color:#fff;
+  font-weight:600;
+}
+
+/* SCROLL ANIMATION */
+.faqhero-reveal{
+  opacity:0;
+  transform:translateY(60px);
+  transition:0.8s ease;
+}
+
+.faqhero-show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* RESPONSIVE */
+
+/* TABLET */
+@media(max-width:992px){
+  .faqhero-title{
+    font-size:48px;
+  }
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .faqhero-section{
+    height:50vh;
+  }
+
+  .faqhero-title{
+    font-size:36px;
+  }
+
+  .faqhero-sub{
+    font-size:14px;
+  }
+
+  .faqhero-breadcrumb{
+    font-size:13px;
+    padding:8px 18px;
+  }
+}
+  </Style>
+
+<script>
+    const faqHero = document.querySelector(".faqhero-reveal");
+    
+    function revealFAQHero(){
+      const top = faqHero.getBoundingClientRect().top;
+      if(top < window.innerHeight - 50){
+        faqHero.classList.add("faqhero-show");
+      }
+    }
+    
+    window.addEventListener("load", revealFAQHero);
+    window.addEventListener("scroll", revealFAQHero);
+    </script>
+
+
+
+
+
+
+<section class="dm2-about">
+
+    <!-- HEADING -->
+    <div class="dm2-heading dm2-animate">About Us</div>
+  
+    <div class="dm2-container">
+  
+      <!-- LEFT CONTENT -->
+      <div class="dm2-left dm2-animate">
+        <h2 class="dm2-animate">We Build Brands That Grow</h2>
+  
+        <p class="dm2-animate">
+          Stackly Digital Marketing helps businesses scale with data-driven strategies,
+          creative storytelling, and performance-focused campaigns.
+        </p>
+  
+        <p class="dm2-animate">
+          We combine technology, creativity, and analytics to deliver measurable growth,
+          ensuring your brand stands out in a competitive digital world.
+        </p>
+
+        <p class="dm2-animate">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+           Voluptate doloribus harum eum. Velit laboriosam porro molestiae odit magnam voluptatum magni?
+        </p>
+
+        
+  
+  
+        <!-- GRAPH -->
+        <div class="dm2-graphs">
+          <div class="dm2-bar-wrap dm2-animate"><div class="dm2-bar" style="height:80%"></div></div>
+          <div class="dm2-bar-wrap dm2-animate"><div class="dm2-bar" style="height:65%"></div></div>
+          <div class="dm2-bar-wrap dm2-animate"><div class="dm2-bar" style="height:90%"></div></div>
+        </div>
+  
+        <!-- LIST -->
+        <ul class="dm2-list">
+          <li class="dm2-animate"><i class="fas fa-check-circle"></i> Strategy & Planning</li>
+          <li class="dm2-animate"><i class="fas fa-check-circle"></i> Brand Design</li>
+          <li class="dm2-animate"><i class="fas fa-check-circle"></i> Performance Marketing</li>
+          <li class="dm2-animate"><i class="fas fa-check-circle"></i> Global Campaigns</li>
+        </ul>
+  
+        <a href="./404.html" class="dm2-btn dm2-animate">Learn More</a>
+      </div>
+  
+      <!-- RIGHT IMAGE -->
+      <div class="dm2-right dm2-animate">
+        <img src="./di2.webp" alt="About">
+  
+        <!-- SMALL FLOATING ICONS -->
+        <span class="dm2-float dm2-animate">⚡</span>
+        <span class="dm2-float dm2-animate">📊</span>
+        <span class="dm2-float dm2-animate">🌍</span>
+        <span class="dm2-float dm2-animate">🚀</span>
+        <span class="dm2-float dm2-animate">💡</span>
+      </div>
+  
+    </div>
+  
+  </section>
+  
+  <style>
+  /* ===== SECTION ===== */
+  .dm2-about{
+    background:#000;
+    color:#fff;
+    padding:80px 8%;
+    overflow:hidden;
+  }
+  
+  /* HEADING */
+  .dm2-heading{
+    display:inline-block;
+    padding:12px 35px;
+    border-radius:40px;
+    border:1px solid rgba(0,255,150,0.3);
+    background:rgba(0,255,150,0.05);
+    color:#00ff99;
+    font-size:24px;
+    margin-bottom:40px;
+  }
+  
+  /* LAYOUT */
+  .dm2-container{
+    display:flex;
+    gap:40px;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+  }
+  
+  /* LEFT */
+  .dm2-left{
+    flex:1;
+    min-width:280px;
+  }
+  
+  .dm2-left h2{
+    color:#00ff99;
+    margin-bottom:15px;
+    font-size:26px;
+  }
+  
+  .dm2-left p{
+    margin-bottom:15px;
+    line-height:1.6;
+    font-size:15px;
+  }
+  
+  /* GRAPH */
+  .dm2-graphs{
+    display:flex;
+    gap:12px;
+    margin:20px 0;
+  }
+  
+  .dm2-bar-wrap{
+    width:18px;
+    height:60px;
+    background:rgba(0,255,150,0.1);
+    border-radius:4px;
+    display:flex;
+    align-items:flex-end;
+  }
+  
+  .dm2-bar{
+    width:100%;
+    background:#00ff99;
+    border-radius:4px;
+  }
+  
+  /* LIST */
+  .dm2-list{
+    list-style:none;
+    margin-bottom:20px;
+  }
+  
+  .dm2-list li{
+    margin-bottom:8px;
+    font-size:14px;
+  }
+  
+  .dm2-list i{
+    color:#00ff99;
+    margin-right:8px;
+  }
+  
+  /* BUTTON */
+  .dm2-btn{
+    display:inline-block;
+    padding:10px 25px;
+    background:#00ff99;
+    color:#000;
+    border-radius:30px;
+    text-decoration:none;
+    font-size:14px;
+  }
+  
+  .dm2-btn:hover{
+    background:#00cc77;
+  }
+  
+  /* RIGHT IMAGE */
+  .dm2-right{
+    flex:1;
+    min-width:280px;
+    position:relative;
+    display:flex;
+    justify-content:center;
+  }
+  
+  .dm2-right img{
+    width:100%;
+    max-width:450px;
+    border-radius:25px;
+    transition:0.5s;
+  }
+  
+  .dm2-right:hover img{
+    transform:scale(1.08);
+    box-shadow:0 0 30px #00ff99;
+  }
+  
+  /* FLOATING ICONS */
+  .dm2-float{
+    position:absolute;
+    font-size:16px;
+    color:#00ff99;
+    animation:dm2Float 4s infinite ease-in-out;
+  }
+  
+  /* RANDOM POSITIONS */
+  .dm2-float:nth-child(2){top:10%;left:10%;}
+  .dm2-float:nth-child(3){top:20%;right:15%;}
+  .dm2-float:nth-child(4){bottom:20%;left:15%;}
+  .dm2-float:nth-child(5){bottom:10%;right:10%;}
+  .dm2-float:nth-child(6){top:50%;left:50%;}
+  
+  /* FLOAT ANIMATION */
+  @keyframes dm2Float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+  }
+  
+  /* ===== DOWNWARD ANIMATION ONLY ===== */
+  .dm2-animate{
+    opacity:0;
+    transform:translateY(60px);
+    transition:all 0.8s ease;
+  }
+  
+  .dm2-show{
+    opacity:1;
+    transform:translateY(0);
+  }
+  
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:992px){
+    .dm2-container{
+      flex-direction:column-reverse;
+      text-align:center;
+    }
+  }
+  
+  @media(max-width:600px){
+    .dm2-heading{font-size:20px;}
+    .dm2-left h2{font-size:20px;}
+    .dm2-left p{font-size:14px;}
+  }
+  </style>
+  
+  <script>
+  /* ===== SCROLL ANIMATION (DOWN ONLY) ===== */
+  (function(){
+    const items = document.querySelectorAll('.dm2-animate');
+  
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('dm2-show');
+        }
+      });
+    },{threshold:0.2});
+  
+    items.forEach(el=>observer.observe(el));
+  })();
+  </script>
+
+
+
+
+
+<!-- WHAT WE DO -->
+<section class="about-section">
+  <div class="container grid">
+
+    <!-- LEFT CONTENT -->
+    <div class="content animate-bottom">
+      <div class="capsule">What We Do</div>
+      <h2>We Drive Digital Growth</h2>
+      <p>
+        At StacklyDigital, we craft powerful digital marketing strategies that
+        elevate brands, boost engagement, and maximize ROI. From SEO to social
+        media, we deliver impactful results.
+      </p>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="image animate-bottom">
+      <img src="./di1.webp" />
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY STACKLY DIGITAL -->
+<section class="about-section alt">
+  <div class="container grid reverse">
+
+    <!-- IMAGE LEFT -->
+    <div class="image animate-left">
+      <img src="./im2.webp" />
+    </div>
+
+    <!-- CONTENT RIGHT -->
+    <div class="content animate-right">
+      <div class="capsule">Why StacklyDigital</div>
+      <h2>We Deliver Results That Matter</h2>
+      <p>
+        We combine creativity, data, and technology to create marketing
+        strategies that actually convert. Our team ensures every campaign
+        drives measurable success.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- OUR STORY -->
+<section class="story-section">
+  <div class="container center">
+
+    <div class="image animate-bottom">
+      <img src="./h2.webp" />
+    </div>
+
+    <div class="content animate-bottom">
+      <div class="capsule">Our Story</div>
+      <h2>From Vision to Innovation</h2>
+      <p>
+        StacklyDigital started with a mission to empower businesses through
+        digital transformation. Today, we continue to innovate and lead
+        brands into the future Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius molestias esse voluptates eaque. Id cupiditate quis, provident doloremque repellat labore, veniam atque voluptatem et sint iusto ducimus, laborum numquam assumenda repudiandae quaerat maiores enim culpa 
+        cum tempore? Hic culpa cum repellat labore commodi. Laboriosam, distinctio iusto odio hic saepe suscipit!
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: black;
+  color: #fff;
+}
+
+/* CONTAINER */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  padding: 100px 0;
+}
+
+.reverse {
+  direction: rtl;
+}
+.reverse .content,
+.reverse .image {
+  direction: ltr;
+}
+
+/* IMAGE */
+.image img {
+  width: 100%;
+  border-radius: 20px;
+  transition: 0.5s;
+}
+.image img:hover {
+  transform: scale(1.05);
+}
+
+/* CONTENT */
+.content h2 {
+  font-size: 40px;
+  margin: 20px 0;
+}
+.content p {
+  font-size: 16px;
+  color: #bbb;
+  line-height: 1.6;
+}
+
+/* CAPSULE BUTTON */
+.capsule {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 50px;
+  background: #00ff99;
+  color:black;
+  font-size: 14px;
+}
+
+/* STORY CENTER */
+.center {
+  text-align: center;
+  padding: 100px 0;
+}
+.center .image img {
+  max-width: 600px;
+  margin-bottom: 30px;
+}
+
+/* ANIMATIONS */
+.animate-bottom,
+.animate-left,
+.animate-right {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+}
+
+.animate-left {
+  transform: translateX(-50px);
+}
+.animate-right {
+  transform: translateX(50px);
+}
+
+.show {
+  opacity: 1;
+  transform: translate(0);
+}
+
+/* RESPONSIVE */
+@media(max-width: 992px) {
+  .grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .reverse {
+    direction: ltr;
+  }
+
+  .content h2 {
+    font-size: 30px;
+  }
+}
+
+@media(max-width: 576px) {
+  .content h2 {
+    font-size: 24px;
+  }
+
+  .capsule {
+    font-size: 12px;
+  }
+}
+</style>
+<script>
+    const elements = document.querySelectorAll(
+  ".animate-bottom, .animate-left, .animate-right"
+);
+
+function reveal() {
+  elements.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+
+    if (top < windowHeight - 100) {
+      el.classList.add("show");
+    }
+  });
+}
+
+window.addEventListener("scroll", reveal);
+reveal();
+</script>
+
+<section class="crx3-testimonials">
+
+    <div class="crx3-container">
+  
+      <div class="crx3-header crx3-reveal">
+        <h2>Hear What Our Happy Clients Say About Their Success Stories</h2>
+      </div>
+  
+      <div class="crx3-slider">
+        <div class="crx3-track">
+  
+          <!-- CARD 1 -->
+          <div class="crx3-card crx3-video crx3-reveal">
+            <video src="./digi2.mp4" muted loop></video>
+            <div class="crx3-play">▶</div>
+            <div class="crx3-user">
+              <img src="./ava1.webp">
+              <div><h4>Michael Torres</h4><span>CEO, TechNova</span></div>
+            </div>
+          </div>
+  
+          <!-- CARD 2 -->
+          <div class="crx3-card crx3-content crx3-reveal">
+            <div class="crx3-stars">★★★★★</div>
+            <h3>Creative Strategies That Stand Out</h3>
+            <p>Working with this team felt like adding a full creative department to our company.</p>
+            <div class="crx3-user">
+              <img src="./ava1.webp">
+              <div><h4>Michael Hayes</h4><span>CEO, TechNova</span></div>
+            </div>
+          </div>
+  
+          <!-- CARD 3 -->
+          <div class="crx3-card crx3-video crx3-reveal">
+            <video src="./Digital.mp4" muted loop></video>
+            <div class="crx3-play">▶</div>
+            <div class="crx3-user">
+              <img src="./ava2.webp">
+              <div><h4>Emma Watson</h4><span>Founder</span></div>
+            </div>
+          </div>
+  
+          <!-- CARD 4 -->
+          <div class="crx3-card crx3-content crx3-reveal">
+            <div class="crx3-stars">★★★★★</div>
+            <h3>Outstanding Experience</h3>
+            <p>Their team delivered beyond expectations. Highly recommended.</p>
+            <div class="crx3-user">
+              <img src="./ava2.webp">
+              <div><h4>Sophia Lee</h4><span>Marketing Head</span></div>
+            </div>
+          </div>
+  
+
+          <!-- CARD 1 -->
+          <div class="crx3-card crx3-video crx3-reveal">
+            <video src="./digi2.mp4" muted loop></video>
+            <div class="crx3-play">▶</div>
+            <div class="crx3-user">
+              <img src="./ava1.webp">
+              <div><h4>Michael Torres</h4><span>CEO, TechNova</span></div>
+            </div>
+          </div>
+  
+          <!-- CARD 2 -->
+          <div class="crx3-card crx3-content crx3-reveal">
+            <div class="crx3-stars">★★★★★</div>
+            <h3>Creative Strategies That Stand Out</h3>
+            <p>Working with this team felt like adding a full creative department to our company.</p>
+            <div class="crx3-user">
+              <img src="./ava1.webp">
+              <div><h4>Michael Hayes</h4><span>CEO, TechNova</span></div>
+            </div>
+          </div>
+  
+          <!-- CARD 3 -->
+          <div class="crx3-card crx3-video crx3-reveal">
+            <video src="./Digital.mp4" muted loop></video>
+            <div class="crx3-play">▶</div>
+            <div class="crx3-user">
+              <img src="./ava2.webp">
+              <div><h4>Emma Watson</h4><span>Founder</span></div>
+            </div>
+          </div>
+  
+          <!-- CARD 4 -->
+          <div class="crx3-card crx3-content crx3-reveal">
+            <div class="crx3-stars">★★★★★</div>
+            <h3>Outstanding Experience</h3>
+            <p>Their team delivered beyond expectations. Highly recommended.</p>
+            <div class="crx3-user">
+              <img src="./ava2.webp">
+              <div><h4>Sophia Lee</h4><span>Marketing Head</span></div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+      <div class="crx3-dots"></div>
+  
+    </div>
+  
+    <!-- VIDEO MODAL -->
+    <div class="crx3-modal">
+      <video controls></video>
+    </div>
+  
+  </section>
+
+  <style>
+    .crx3-testimonials{
+  padding:100px 20px;
+  background: black;
+  font-family:Poppins,sans-serif;
+  overflow:hidden;
+}
+
+.crx3-container{max-width:1200px;margin:auto;}
+
+.crx3-header{text-align:center;margin-bottom:60px;}
+.crx3-header h2{font-size:34px;font-weight:700;}
+
+/* SLIDER */
+.crx3-slider{overflow:hidden;color:black;}
+.crx3-track{display:flex;gap:30px;transition:0.6s ease;color:black;}
+
+/* CARD */
+.crx3-card{
+  min-width:320px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(12px);
+  padding:20px;
+  transition:0.6s;
+  transform:scale(0.85);
+  opacity:0.6;
+  position:relative;
+}
+
+/* ACTIVE */
+.crx3-card.active{
+  transform:scale(1);
+  opacity:1;
+}
+
+/* VIDEO */
+.crx3-video video{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:15px;
+}
+
+.crx3-play{
+  position:absolute;
+  top:100px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#fff;
+  width:60px;height:60px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+/* TEXT */
+.crx3-stars{color:#f4b400;margin-bottom:10px;}
+.crx3-card h3{font-size:18px;margin-bottom:10px;}
+.crx3-card p{font-size:14px;color:#555;}
+
+/* USER */
+.crx3-user{display:flex;gap:10px;margin-top:15px;align-items:center;}
+.crx3-user img{width:40px;height:40px;border-radius:50%;}
+
+/* DOTS */
+.crx3-dots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:30px;
+}
+.crx3-dots span{
+  width:10px;height:10px;
+  background:#ccc;
+  border-radius:50%;
+  cursor:pointer;
+}
+.crx3-dots .active{background:#ff5c5c;}
+
+/* MODAL */
+.crx3-modal{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.8);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.crx3-modal video{
+  width:80%;
+  max-width:700px;
+}
+
+/* SCROLL ANIMATION */
+.crx3-reveal{
+  opacity:0;
+  transform:translateY(80px) scale(0.95);
+  transition:all 0.8s cubic-bezier(.17,.67,.3,1);
+}
+.crx3-reveal.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+/* RESPONSIVE */
+@media(max-width:992px){
+  .crx3-card{min-width:280px;}
+}
+@media(max-width:600px){
+  .crx3-card{min-width:240px;}
+  .crx3-header h2{font-size:24px;}
+  .crx3-reveal{
+    transform:translateY(40px);
+    transition:0.5s ease;
+  }
+}
+    </style>
+    <script>
+        (function(){
+
+const section = document.querySelector('.crx3-testimonials');
+if(!section) return;
+
+const track = section.querySelector('.crx3-track');
+const cards = section.querySelectorAll('.crx3-card');
+const dotsWrap = section.querySelector('.crx3-dots');
+const modal = section.querySelector('.crx3-modal');
+const modalVideo = modal.querySelector('video');
+
+let index = 0;
+
+/* CREATE DOTS */
+cards.forEach((_,i)=>{
+  let dot = document.createElement('span');
+  if(i===0) dot.classList.add('active');
+  dot.onclick=()=>{index=i;update();}
+  dotsWrap.appendChild(dot);
+});
+
+const dots = dotsWrap.querySelectorAll('span');
+
+function update(){
+  cards.forEach(c=>c.classList.remove('active'));
+  dots.forEach(d=>d.classList.remove('active'));
+
+  cards[index].classList.add('active');
+  dots[index].classList.add('active');
+
+  let offset = cards[index].offsetLeft - 100;
+  track.style.transform = `translateX(-${offset}px)`;
+}
+
+setInterval(()=>{
+  index = (index+1)%cards.length;
+  update();
+},3000);
+
+update();
+
+/* VIDEO HOVER */
+section.querySelectorAll('video').forEach(v=>{
+  v.addEventListener('mouseenter',()=>v.play());
+  v.addEventListener('mouseleave',()=>v.pause());
+});
+
+/* VIDEO POPUP */
+section.querySelectorAll('.crx3-play').forEach((btn,i)=>{
+  btn.onclick=()=>{
+    modal.style.display='flex';
+    modalVideo.src = cards[i].querySelector('video').src;
+    modalVideo.play();
+  }
+});
+
+modal.onclick=()=>{
+  modal.style.display='none';
+  modalVideo.pause();
+}
+
+/* SCROLL REVEAL WITH STAGGER */
+const revealElements = section.querySelectorAll('.crx3-reveal');
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach((entry)=>{
+    if(entry.isIntersecting){
+
+      revealElements.forEach((el,i)=>{
+        setTimeout(()=>{
+          el.classList.add('show');
+        }, i * 150);
+      });
+
+      observer.disconnect();
+    }
+  });
+},{threshold:0.2});
+
+observer.observe(section);
+
+})();
+    </script>
+
+
+
+
+
+<!-- ================= FOOTER ================= -->
+<footer class="bio-footer">
+
+    <div class="footer-container">
+  
+      <!-- LOGO + ABOUT -->
+  <div class="footer-col">
+    <img src="./logo.webp" class="footer-logo">
+  
+    <p>
+      Advancing biotechnology through innovation and research.
+      Transforming healthcare and life sciences globally.
+    </p>
+  
+    <!-- FOLLOW US -->
+    <h4 class="follow-title">Follow Us</h4>
+  
+    <div class="social-icons">
+      <a href="404.html"><i class="ri-facebook-fill"></i></a>
+      <a href="404.html"><i class="ri-twitter-x-line"></i></a>
+      <a href="404.html"><i class="ri-instagram-line"></i></a>
+      <a href="404.html"><i class="ri-linkedin-fill"></i></a>
+     
+    </div>
+  </div>
+  
+      <!-- QUICK LINKS -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+            
+      <li><a href="./index.html">HOME</a></li>
+        <li><a href="./about.html">ABOUT</a></li>
+            <li><a href="./service.html">SERVICES</a></li>
+                
+                    <li><a href="./contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+  
+      <!-- LAB SERVICES -->
+      <div class="footer-col">
+        <h4>Our Process</h4>
+        <ul>
+            <li><a href="404.html">Solutions</a></li>
+            <li><a href="404.html">Expert Team</a></li>
+            <li><a href="404.html">Driven Insights</a></li>
+            <li><a href="404.html">Data Encryption</a></li>
+            <li><a href="404.html">Ongoing support</a></li>
+        </ul>
+      </div>
+  
+      <!-- LOCATION -->
+      <div class="footer-col">
+        <h4>Location</h4>
+        <div class="map">
+          <iframe src="https://www.google.com/maps?q=Salem%20Tamil%20Nadu&output=embed"></iframe>
+        </div>
+      </div>
+  
+      <!-- SUBSCRIBE -->
+      <div class="footer-col">
+        <h4>Research Updates</h4>
+  
+        <div class="subscribe">
+          <input type="email" id="email" placeholder="Enter Email">
+          <button onclick="subscribe()">Subscribe</button>
+        </div>
+  
+        <span id="msg"></span>
+      </div>
+  
+    </div>
+  
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+      <p>
+        © 2026 BioGen | All Rights Reserved |
+        <a href="404.html">Privacy Policy</a> |
+        <a href="404.html">Terms & Conditions</a>
+      </p>
+    </div>
+  
+  </footer>
+  
+  <style>
+    /* FOLLOW TITLE */
+  .follow-title {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #00ff99;
+  }
+  
+  /* SOCIAL ICONS */
+  .social-icons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  /* ICON STYLE */
+  .social-icons a {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+    font-size: 18px;
+    color: #fff;
+    transition: 0.3s ease;
+  }
+  
+  /* HOVER EFFECT (BIO GLOW) */
+  .social-icons a:hover {
+    /* background: #00f7ff; */
+    color: #000;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 0 15px #00ff99;
+  }
+  
+  /* MOBILE CENTER ALIGN */
+  @media (max-width: 480px) {
+    .social-icons {
+      justify-content: center;
+    }
+  
+    .follow-title {
+      text-align: center;
+    }
+  }
+    /* PRE FOOTER */
+  .pre-footer {
+    background: #0a0f1a;
+    padding: 40px 20px;
+  }
+  
+  .pre-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .pre-box {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .pre-box i {
+    font-size: 30px;
+    color: #00ff99;
+    margin-bottom: 10px;
+  }
+  
+  /* FOOTER */
+  .bio-footer {
+    background: #05070d;
+    color: #fff;
+    padding: 60px 20px;
+  }
+  
+  .footer-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+  }
+  
+  /* LOGO */
+  .footer-logo {
+    width: 140px;
+    margin-bottom: 10px;
+  }
+  
+  /* TEXT */
+  .footer-col p {
+    font-size: 14px;
+    color: #aaa;
+  }
+  
+  /* LINKS */
+  .footer-col h4 {
+    margin-bottom: 15px;
+    color: #00ff99;
+  }
+  
+  .footer-col ul {
+    list-style: none;
+  }
+  
+  .footer-col ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-col ul li a {
+    color: #aaa;
+    text-decoration: none;
+  }
+  
+  .footer-col ul li a:hover {
+    color: #00ff99;
+  }
+  
+  /* SOCIAL */
+  .social-icons a {
+    margin-right: 10px;
+    font-size: 20px;
+    color: #fff;
+  }
+  
+  .social-icons a:hover {
+    color: #00ff99;
+  }
+  
+  /* MAP */
+  .map iframe {
+    width: 100%;
+    height: 180px;
+    border: 0;
+    border-radius: 10px;
+  }
+  
+  /* SUBSCRIBE */
+  .subscribe {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .subscribe input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+  }
+  
+  .subscribe button {
+    padding: 10px;
+    background: #00ff99;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* MESSAGE */
+  #msg {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+  }
+  
+  /* BOTTOM */
+  .footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    border-top: 1px solid #222;
+    padding-top: 15px;
+    font-size: 14px;
+  }
+  
+  .footer-bottom a {
+    color: #00ff99;
+    text-decoration: none;
+  }
+  
+  /* ================= RESPONSIVE ================= */
+  
+  /* TABLET */
+  @media (max-width: 1024px) {
+    .footer-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .footer-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .subscribe {
+      flex-direction: column;
+    }
+  }
+  
+  /* SMALL MOBILE */
+  @media (max-width: 480px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  
+    .social-icons {
+      margin-top: 10px;
+    }
+  }
+    </style>
+  
+  <script>
+    function subscribe() {
+      let email = document.getElementById("email").value;
+      let msg = document.getElementById("msg");
+    
+      let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    
+      if (email === "" || !email.match(pattern)) {
+        msg.style.color = "red";
+        msg.innerText = "Please fill correct mail id";
+        return;
+      }
+    
+      setTimeout(() => {
+      window.location.href = "404.html";
+    });
+    }
+    </script>
+    </body>
+    </html>

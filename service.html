@@ -1,0 +1,2246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly digital marketing </title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<!-- Animate -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif;}
+  
+  /* THEME VARIABLES */
+  :root{
+    --bg:#ffffff;
+    --text:#0f172a;
+    --glass:rgba(255,255,255,0.6);
+    --border:rgba(255,255,255,0.3);
+    --accent:#00ff99;
+  }
+  
+  body.dark{
+    --bg:#020617;
+    --text:#e2e8f0;
+    --glass:rgba(15,23,42,0.7);
+    --border:rgba(255,255,255,0.1);
+  }
+  
+  body{
+    background:var(--bg);
+    color:var(--text);
+    transition:0.3s;
+  }
+  
+  /* HEADER */
+  header{
+    position:fixed;
+    top:0;left:0;width:100%;
+    background:var(--glass);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    box-shadow:0 8px 30px rgba(0,0,0,0.05);
+    z-index:1000;
+    transition:0.3s;
+  }
+  
+  /* SHRINK */
+  header.shrink{
+    padding:5px 0;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+  }
+  
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 40px;
+    position:relative;
+  }
+  
+  /* LOGO */
+  .logo img{height:40px;}
+  
+  /* NAV */
+  .nav-links{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:30px;
+  }
+  
+  .nav-links a{
+    text-decoration:none;
+    color:var(--text);
+    font-weight:500;
+    position:relative;
+  }
+  
+  .nav-links a:hover,
+  .nav-links a.active{
+    color:var(--accent);
+  }
+  
+  .nav-links a:hover::after,
+  .nav-links a.active::after{
+    content:"";
+    position:absolute;
+    bottom:-6px;
+    left:0;
+    width:100%;
+    height:2px;
+    background:var(--accent);
+  }
+  
+  /* RIGHT */
+  .right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  
+  .btn{
+    padding:8px 18px;
+    border-radius:30px;
+    border:none;
+    cursor:pointer;
+    font-size:14px;
+    transition:0.3s;
+  }
+  
+  .login{
+    background:transparent;
+    border:1px solid var(--accent);
+    color:var(--accent);
+  }
+  
+  .login:hover{
+    background:var(--accent);
+    color:black;
+  }
+  
+  .register{
+    background:var(--accent);
+    color:black;
+  }
+  
+  /* DARK MODE BUTTON */
+  .theme-toggle{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    background:var(--accent);
+    color:black;
+    font-size:16px;
+  }
+  
+  /* MENU */
+  .menu-toggle{
+    display:none;
+    font-size:22px;
+    cursor:pointer;
+  }
+  
+  /* MOBILE MENU */
+  .mobile-menu{
+    position:fixed;
+    top:0;left:-100%;
+    width:260px;height:100vh;
+    background:var(--bg);
+    padding:20px;
+    transition:0.3s;
+    z-index:2000;
+  }
+  
+  .mobile-menu.active{left:0;}
+  
+  .mobile-menu a{
+    display:block;
+    margin:15px 0;
+    text-decoration:none;
+    color:var(--text);
+  }
+  
+  /* OVERLAY */
+  .overlay{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.4);
+    display:none;
+    z-index:1500;
+  }
+  
+  .overlay.active{display:block;}
+  
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .right{display:none;}
+    .menu-toggle{display:block;}
+  }
+  
+  @media(max-width:576px){
+    .navbar{padding:15px;}
+  }
+  </style>
+  
+  <header id="header">
+    <div class="navbar">
+  
+      <div class="menu-toggle" onclick="toggleMenu()">
+        ☰
+      </div>
+  
+      <div class="logo">
+        <a href="./index.html">
+          <img src="./logo.webp" alt="Stackly">
+        </a>
+      </div>
+  
+      <div class="nav-links">
+        <a href="./index.html">HOME</a>
+    <a href="./about.html">ABOUT</a>
+    <a href="./service.html">SERVICE</a>
+    
+    <a href="./contact.html">CONTACT</a>
+      </div>
+  
+      <div class="right">
+        <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+        <button class="btn login" onclick="location.href='login.html'">Login</button>
+        <button class="btn register" onclick="location.href='register.html'">Register</button>
+      </div>
+  
+    </div>
+  </header>
+  
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="./index.html">HOME</a>
+    <a href="./about.html">ABOUT</a>
+    <a href="./service.html">SERVICE</a>
+    
+    <a href="./contact.html">CONTACT</a>
+    <hr>
+    <a href="./login.html">Login</a>
+    <a href="./register.html">Register</a>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+  
+  <script>
+  // MENU
+  function toggleMenu(){
+    mobileMenu.classList.toggle("active");
+    overlay.classList.toggle("active");
+  }
+  
+  overlay.onclick=()=>{
+    mobileMenu.classList.remove("active");
+    overlay.classList.remove("active");
+  };
+  
+  // SHRINK
+  window.addEventListener("scroll",()=>{
+    header.classList.toggle("shrink",window.scrollY>50);
+  });
+  
+  // DARK MODE
+  function toggleTheme(){
+    document.body.classList.toggle("dark");
+  
+    const icon = document.querySelector(".theme-toggle");
+    if(document.body.classList.contains("dark")){
+      icon.textContent="☀️";
+    }else{
+      icon.textContent="🌙";
+    }
+  }
+  </script>
+    
+    </body>
+<section class="faqhero-section">
+
+    <!-- OVERLAY -->
+    <div class="faqhero-overlay"></div>
+  
+    <div class="faqhero-container faqhero-reveal">
+  
+      <!-- HEADING -->
+      <h1 class="faqhero-title">SERVICE</h1>
+  
+      <!-- SUBTEXT -->
+      <!-- <p class="faqhero-sub">Find answers to your questions about our IT services</p> -->
+  
+      <!-- BREADCRUMB -->
+      <div class="faqhero-breadcrumb">
+        <a href="./index.html">Home</a>
+        <span>→</span>
+        <span class="active">SERVICE</span>
+      </div>
+  
+    </div>
+  
+  </section>
+
+  <Style>
+    /* SECTION */
+.faqhero-section{
+  position:relative;
+  height:60vh;
+  min-height:400px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+  overflow:hidden;
+
+  background:url("./di1.webp") center/cover no-repeat;
+}
+
+/* OVERLAY */
+.faqhero-overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,255,150,0.2));
+  backdrop-filter:blur(4px);
+}
+
+/* CONTAINER */
+.faqhero-container{
+  position:relative;
+  z-index:2;
+  padding:20px;
+}
+
+/* TITLE */
+.faqhero-title{
+  font-size:64px;
+  font-weight:700;
+  letter-spacing:2px;
+  margin-bottom:10px;
+  text-shadow:0 0 20px #00ffcc;
+}
+
+/* SUBTEXT */
+.faqhero-sub{
+  font-size:18px;
+  opacity:0.9;
+  margin-bottom:20px;
+}
+
+/* BREADCRUMB */
+.faqhero-breadcrumb{
+  display:inline-flex;
+  gap:10px;
+  padding:10px 25px;
+  border-radius:50px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 15px rgba(0,255,150,0.4);
+}
+
+.faqhero-breadcrumb a{
+  color:#00ffcc;
+  text-decoration:none;
+}
+
+.faqhero-breadcrumb span{
+  opacity:0.8;
+}
+
+.faqhero-breadcrumb .active{
+  color:#fff;
+  font-weight:600;
+}
+
+/* SCROLL ANIMATION */
+.faqhero-reveal{
+  opacity:0;
+  transform:translateY(60px);
+  transition:0.8s ease;
+}
+
+.faqhero-show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* RESPONSIVE */
+
+/* TABLET */
+@media(max-width:992px){
+  .faqhero-title{
+    font-size:48px;
+  }
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .faqhero-section{
+    height:50vh;
+  }
+
+  .faqhero-title{
+    font-size:36px;
+  }
+
+  .faqhero-sub{
+    font-size:14px;
+  }
+
+  .faqhero-breadcrumb{
+    font-size:13px;
+    padding:8px 18px;
+  }
+}
+  </Style>
+
+<script>
+    const faqHero = document.querySelector(".faqhero-reveal");
+    
+    function revealFAQHero(){
+      const top = faqHero.getBoundingClientRect().top;
+      if(top < window.innerHeight - 50){
+        faqHero.classList.add("faqhero-show");
+      }
+    }
+    
+    window.addEventListener("load", revealFAQHero);
+    window.addEventListener("scroll", revealFAQHero);
+    </script>
+
+
+
+<section class="nx7-services-section">
+
+    <!-- Capsule Heading -->
+    <div class="nx7-heading-wrap nx7-animate">
+      <div class="nx7-heading-capsule">
+        <span>Services We Offer</span>
+      </div>
+    </div>
+  
+    <!-- Grid -->
+    <div class="nx7-grid">
+  
+      <!-- Large Card -->
+      <div class="nx7-card nx7-large nx7-animate">
+        <div class="nx7-bg" style="background-image:url('./bac1.webp');"></div>
+        <div class="nx7-content">
+          <h3>Website Development</h3>
+          <p>High-performance scalable web solutions.</p>
+        </div>
+      </div>
+  
+      <!-- Medium -->
+      <div class="nx7-card nx7-wide nx7-animate">
+        <div class="nx7-bg" style="background-image:url('./di1.webp');"></div>
+        <div class="nx7-content">
+          <h3>Creative Content</h3>
+          <p>Story-driven content production.</p>
+        </div>
+      </div>
+  
+      <!-- Small -->
+      <div class="nx7-card nx7-animate">
+        <div class="nx7-bg" style="background-image:url('./corp1.webp');"></div>
+        <div class="nx7-content">
+          <h3>Social Media</h3>
+          <p>Growth-driven campaigns.</p>
+        </div>
+      </div>
+  
+      <!-- Tall -->
+      <div class="nx7-card nx7-tall nx7-animate">
+        <div class="nx7-bg" style="background-image:url('./h2.webp');"></div>
+        <div class="nx7-content">
+          <h3>Photography</h3>
+          <p>Premium visuals & storytelling.</p>
+        </div>
+      </div>
+  
+      <!-- Extra Cards -->
+      <div class="nx7-card nx7-animate">
+        <div class="nx7-bg" style="background-image:url('./life.webp');"></div>
+        <div class="nx7-content">
+          <h3>Branding</h3>
+          <p>Unique identity design.</p>
+        </div>
+      </div>
+  
+      <div class="nx7-card nx7-wide nx7-animate">
+        <div class="nx7-bg" style="background-image:url('./signup.webp');"></div>
+        <div class="nx7-content">
+          <h3>SEO Optimization</h3>
+          <p>Rank higher & grow organically.</p>
+        </div>
+      </div>
+  
+      <div class="nx7-card nx7-animate">
+        <div class="nx7-bg" style="background-image:url('./di1.webp');"></div>
+        <div class="nx7-content">
+          <h3>Analytics</h3>
+          <p>Data-driven decisions.</p>
+        </div>
+      </div>
+  
+      <div class="nx7-card nx7-large nx7-animate">
+        <div class="nx7-bg" style="background-image:url('./life.webp');"></div>
+        <div class="nx7-content">
+          <h3>Product Marketing</h3>
+          <p>Launch & scale effectively.</p>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+
+  <style>
+    /* ===== SECTION ===== */
+.nx7-services-section{
+  background:#0b0f0c;
+  padding:80px 20px;
+  font-family:'Poppins',sans-serif;
+}
+
+/* ===== HEADING ===== */
+.nx7-heading-wrap{
+  text-align:center;
+  margin-bottom:60px;
+}
+
+.nx7-heading-capsule{
+  display:inline-block;
+  padding:12px 40px;
+  border-radius:50px;
+  color:#00ff99;
+  border:1px solid rgba(0,255,150,0.4);
+  background:rgba(0,255,150,0.05);
+  transition:0.4s;
+}
+
+.nx7-heading-capsule:hover{
+  box-shadow:0 0 20px #00ff99;
+}
+
+/* ===== GRID ===== */
+.nx7-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:25px;
+}
+
+/* ===== CARD BASE ===== */
+.nx7-card{
+  position:relative;
+  min-height:180px;
+  border:1px solid rgba(255,255,255,0.15);
+  overflow:hidden;
+  cursor:pointer;
+}
+
+/* SIZES */
+.nx7-large{ grid-column:span 2; grid-row:span 2; }
+.nx7-wide{ grid-column:span 2; }
+.nx7-tall{ grid-row:span 2; }
+
+/* BG */
+.nx7-bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transform:scale(1.1);
+  transition:0.5s;
+}
+
+/* CONTENT */
+.nx7-content{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:25px;
+  color:#fff;
+  z-index:2;
+}
+
+.nx7-content p{
+  opacity:0;
+  transform:translateY(20px);
+  transition:0.4s;
+}
+
+/* OVERLAY */
+.nx7-card::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  opacity:0;
+  transition:0.4s;
+}
+
+/* HOVER */
+.nx7-card:hover .nx7-bg{
+  opacity:1;
+  transform:scale(1);
+}
+
+.nx7-card:hover::after{
+  opacity:1;
+}
+
+.nx7-card:hover p{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.nx7-card:hover{
+  border-color:#00ff99;
+  box-shadow:0 0 20px rgba(0,255,150,0.3);
+}
+
+/* ===== SCROLL ANIMATION ===== */
+.nx7-animate{
+  opacity:0;
+  transform:translateY(60px);
+  transition:0.8s;
+}
+
+.nx7-show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1200px){
+  .nx7-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .nx7-large,
+  .nx7-wide,
+  .nx7-tall{
+    grid-column:span 1 !important;
+    grid-row:span 1 !important;
+  }
+}
+
+@media(max-width:600px){
+  .nx7-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* INITIAL STATE */
+.nx7-animate{
+  opacity:0;
+  transform:translateY(80px) scale(0.96);
+  transition:
+    transform 0.9s cubic-bezier(0.22,1,0.36,1),
+    opacity 0.9s ease;
+  will-change:transform, opacity;
+}
+
+/* ACTIVE STATE */
+.nx7-show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+  </style>
+
+  <Script>
+
+    // ===== NX7 SCROLL ANIMATION ENGINE =====
+(function(){
+
+const elements = document.querySelectorAll('.nx7-animate');
+
+const observer = new IntersectionObserver((entries, obs)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+
+      const el = entry.target;
+
+      // Delay support (stagger animation)
+      const delay = el.getAttribute('data-delay') || 0;
+
+      setTimeout(()=>{
+        el.classList.add('nx7-show');
+      }, delay);
+
+      // Animate only once (remove if you want repeat)
+      obs.unobserve(el);
+    }
+  });
+},{
+  threshold:0.15,
+  rootMargin:"0px 0px -50px 0px"
+});
+
+elements.forEach(el=>{
+  observer.observe(el);
+});
+
+})();
+    const nx7Observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('nx7-show');
+    }
+  });
+},{threshold:0.2});
+
+document.querySelectorAll('.nx7-animate').forEach(el=>{
+  nx7Observer.observe(el);
+});
+  </Script>
+
+
+
+<section class="zx9-projects">
+
+    <div class="zx9-container">
+  
+      <!-- HEADER -->
+      <div class="zx9-header zx9-reveal">
+        <h2 class="zx9-title">Our Projects</h2>
+        <a href="./404.html" class="zx9-btn">View All →</a>
+      </div>
+  
+      <!-- SLIDER -->
+      <div class="zx9-slider">
+        <div class="zx9-track">
+  
+          <div class="zx9-card zx9-reveal">
+            <img src="./life.webp">
+            <div class="zx9-overlay">
+              <h3>Powerful Digital Storefront</h3>
+            </div>
+            <a href="404.html" class="zx9-arrow">↗</a>
+          </div>
+  
+          <div class="zx9-card zx9-reveal">
+            <img src="./signup.webp">
+            <div class="zx9-overlay">
+              <h3>Creative Branding</h3>
+            </div>
+            <a href="404.html" class="zx9-arrow">↗</a>
+          </div>
+  
+          <div class="zx9-card zx9-reveal">
+            <img src="./di1.webp">
+            <div class="zx9-overlay">
+              <h3>Marketing Strategy</h3>
+            </div>
+            <a href="404.html" class="zx9-arrow">↗</a>
+          </div>
+
+
+          <div class="zx9-card zx9-reveal">
+            <img src="./life.webp">
+            <div class="zx9-overlay">
+              <h3>Powerful Digital Storefront</h3>
+            </div>
+            <a href="404.html" class="zx9-arrow">↗</a>
+          </div>
+  
+          <div class="zx9-card zx9-reveal">
+            <img src="./signup.webp">
+            <div class="zx9-overlay">
+              <h3>Creative Branding</h3>
+            </div>
+            <div class="zx9-arrow">↗</div>
+          </div>
+  
+          <div class="zx9-card zx9-reveal">
+            <img src="./di1.webp">
+            <div class="zx9-overlay">
+              <h3>Marketing Strategy</h3>
+            </div>
+            <a href="404.html" class="zx9-arrow">↗</a>
+          </div>
+  
+        </div>
+      </div>
+  
+    </div>
+  
+  </section>
+
+  <style>
+    /* ===== ROOT WRAPPER (ISOLATION) ===== */
+.zx9-projects{
+  all: initial;
+  display:block;
+  font-family:Poppins, sans-serif;
+}
+
+/* RESET INSIDE ONLY */
+.zx9-projects *{
+  box-sizing:border-box;
+}
+
+/* ===== SECTION ===== */
+.zx9-container{
+  /* background:radial-gradient(circle at top,#6cff6c,#1a5f1a); */
+  padding:100px 20px;
+  overflow:hidden;
+}
+
+/* HEADER */
+.zx9-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:50px;
+}
+
+.zx9-title{
+  font-size:32px;
+  color:#000;
+}
+
+.zx9-btn{
+  background:#000;
+  color:#fff;
+  padding:10px 20px;
+  border-radius:30px;
+  text-decoration:none;
+}
+
+/* ===== SLIDER ===== */
+.zx9-slider{
+  overflow:hidden;
+}
+
+.zx9-track{
+  display:flex;
+  gap:30px;
+  transition:transform 0.6s ease;
+}
+
+/* ===== CARD ===== */
+.zx9-card{
+  min-width:380px;
+  height:260px;
+  border-radius:20px;
+  overflow:hidden;
+  position:relative;
+  transform:scale(0.85);
+  opacity:0.6;
+  transition:0.4s;
+  
+  min-width:480px;   /* increased */
+  height:420px;      /* increased */
+}
+
+
+.zx9-card.active{
+  transform:scale(1);
+  opacity:1;
+}
+
+/* IMAGE */
+.zx9-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.7);
+}
+
+/* OVERLAY */
+.zx9-overlay{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  color:#fff;
+}
+
+/* ARROW */
+.zx9-arrow{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:80px;
+  height:80px;
+  background:#66ff66;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+  opacity:0;
+  transition:0.3s;
+}
+
+.zx9-card:hover .zx9-arrow{
+  opacity:1;
+}
+
+/* ===== SCROLL ANIMATION ===== */
+.zx9-reveal{
+  opacity:0;
+  transform:translateY(60px);
+  transition:0.6s ease;
+}
+
+.zx9-reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:992px){
+  .zx9-card{
+    min-width:300px;
+    height:220px;
+  }
+}
+
+@media(max-width:600px){
+  .zx9-header{
+    flex-direction:column;
+    gap:10px;
+    text-align:center;
+  }
+
+  .zx9-card{
+    min-width:240px;
+    height:180px;
+  }
+
+  .zx9-title{
+    font-size:24px;
+  }
+}
+    </style>
+    <script>
+        (function(){
+
+const section = document.querySelector('.zx9-projects');
+if(!section) return;
+
+const track = section.querySelector('.zx9-track');
+const cards = section.querySelectorAll('.zx9-card');
+const reveals = section.querySelectorAll('.zx9-reveal');
+
+let index = 0;
+
+function update(){
+  cards.forEach(c=>c.classList.remove('active'));
+  cards[index].classList.add('active');
+
+  let offset = cards[index].offsetLeft - 80;
+  track.style.transform = `translateX(-${offset}px)`;
+}
+
+setInterval(()=>{
+  index = (index + 1) % cards.length;
+  update();
+},3000);
+
+update();
+
+/* SCROLL REVEAL */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
+  });
+},{threshold:0.2});
+
+reveals.forEach(el=>observer.observe(el));
+
+})();
+    </script>
+
+
+
+    <section class="dm4-section">
+
+    <div class="dm4-heading-wrap dm4-animate">
+        <div class="dm4-heading-capsule">
+          <span>Our Work & Impact</span>
+        </div>
+      </div>
+    <div class="dm4-container">
+  
+      <!-- LEFT IMAGE -->
+      <div class="dm4-left dm4-animate">
+        <img src="./h2.webp" alt="">
+      </div>
+  
+      <!-- RIGHT GRID -->
+      <div class="dm4-right">
+  
+        <!-- CARD 1 -->
+        <div class="dm4-card dm4-animate">
+          <h3>Real Impact. Real Growth.</h3>
+          <p>We deliver measurable success for global brands.</p>
+  
+          <div class="dm4-users">
+            <img src="./ava1.webp">
+            <img src="./ava2.webp">
+            <img src="./ava3.webp">
+            <span>+</span>
+          </div>
+        </div>
+  
+        <!-- CARD 2 -->
+        <div class="dm4-card dm4-animate">
+          <h3>Engagement Growth</h3>
+          <div class="dm4-stat" data-target="86">0%</div>
+          <span>Retention Rate</span>
+        </div>
+  
+        <!-- CARD 3 -->
+        <div class="dm4-card dm4-animate">
+          <h3>Creative Strategy</h3>
+          <img src="./di1.webp" alt="">
+        </div>
+  
+        <!-- CARD 4 -->
+        <div class="dm4-card dm4-animate">
+          <h3>Trusted Worldwide</h3>
+          <div class="dm4-rating">4.9/5</div>
+          <div class="dm4-stars">★★★★★</div>
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  </section>
+
+  <style>
+    /* ===== HEADING WRAPPER ===== */
+.dm4-heading-wrap{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+/* ===== CAPSULE ===== */
+.dm4-heading-capsule{
+  display:inline-block;
+  padding:12px 40px;
+  border-radius:50px;
+  font-size:20px;
+  font-weight:500;
+  color:#00ff99;
+
+  background:rgba(0,255,150,0.05);
+  border:1px solid rgba(0,255,150,0.3);
+  backdrop-filter:blur(10px);
+
+  position:relative;
+  overflow:hidden;
+  transition:0.4s;
+}
+
+/* GLOW EFFECT */
+.dm4-heading-capsule::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:50px;
+  padding:1px;
+  background:linear-gradient(120deg,#00ff99,transparent);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+}
+
+/* HOVER EFFECT */
+.dm4-heading-capsule:hover{
+  box-shadow:0 0 20px #00ff99;
+  transform:scale(1.05);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:992px){
+  .dm4-heading-capsule{
+    font-size:18px;
+    padding:10px 30px;
+  }
+}
+
+@media(max-width:600px){
+  .dm4-heading-capsule{
+    font-size:16px;
+    padding:8px 25px;
+  }
+}
+  /* ===== SECTION ===== */
+.dm4-section{
+  padding:80px 8%;
+  background:#000;
+}
+
+.dm4-container{
+  display:flex;
+  gap:30px;
+  flex-wrap:wrap;
+}
+
+/* LEFT IMAGE */
+.dm4-left{
+  flex:1;
+  min-width:280px;
+}
+
+.dm4-left img{
+  width:100%;
+  border-radius:25px;
+  transition:0.5s;
+}
+
+.dm4-left:hover img{
+  transform:scale(1.05);
+}
+
+/* RIGHT GRID */
+.dm4-right{
+  flex:1;
+  min-width:280px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+/* GLASS CARD */
+.dm4-card{
+  position:relative;
+  padding:25px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(0,255,150,0.2);
+  color:#fff;
+  transition:0.4s;
+  overflow:hidden;
+}
+
+/* GLOW BORDER */
+.dm4-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:20px;
+  padding:1px;
+  background:linear-gradient(120deg,#00ff99,transparent);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+}
+
+/* HOVER */
+.dm4-card:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 0 25px #00ff99;
+}
+
+/* TEXT */
+.dm4-card h3{
+  font-size:16px;
+  margin-bottom:10px;
+}
+
+.dm4-card p{
+  font-size:14px;
+}
+
+/* USERS */
+.dm4-users{
+  display:flex;
+  margin-top:15px;
+}
+
+.dm4-users img{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  margin-right:-10px;
+  border:2px solid #000;
+}
+
+.dm4-users span{
+  width:35px;
+  height:35px;
+  background:#00ff99;
+  color:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  margin-left:10px;
+}
+
+/* STATS */
+.dm4-stat{
+  font-size:42px;
+  font-weight:bold;
+  color:#00ff99;
+}
+
+/* IMAGE CARD */
+.dm4-card img{
+  width:100%;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+/* RATING */
+.dm4-stars{
+  color:#00ff99;
+}
+
+/* ===== ANIMATION ===== */
+.dm4-animate{
+  opacity:0;
+  transform:translateY(60px);
+  transition:all 0.8s ease;
+}
+
+.dm4-show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:992px){
+  .dm4-container{
+    flex-direction:column;
+  }
+  .dm4-right{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+  .dm4-card{
+    padding:18px;
+  }
+  .dm4-stat{
+    font-size:30px;
+  }
+}
+  </style>
+
+  <script>
+    // SCROLL ANIMATION
+(function(){
+  const items = document.querySelectorAll('.dm4-animate');
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry,index)=>{
+      if(entry.isIntersecting){
+        setTimeout(()=>{
+          entry.target.classList.add('dm4-show');
+        }, index * 150);
+      }
+    });
+  },{threshold:0.2});
+
+  items.forEach(el=>observer.observe(el));
+})();
+
+// COUNTER ANIMATION
+document.querySelectorAll('.dm4-stat').forEach(stat=>{
+  let target = +stat.getAttribute('data-target');
+  let count = 0;
+
+  let update = ()=>{
+    count += target/50;
+    if(count < target){
+      stat.innerText = Math.floor(count) + "%";
+      requestAnimationFrame(update);
+    } else {
+      stat.innerText = target + "%";
+    }
+  };
+  update();
+});
+
+// TILT EFFECT
+document.querySelectorAll('.dm4-card').forEach(card=>{
+  card.addEventListener('mousemove', e=>{
+    let rect = card.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+
+    let rotateX = (y / rect.height - 0.5) * 10;
+    let rotateY = (x / rect.width - 0.5) * -10;
+
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  card.addEventListener('mouseleave', ()=>{
+    card.style.transform = '';
+  });
+});
+
+// simple scroll trigger
+document.querySelectorAll('.dm4-animate').forEach(el=>{
+  new IntersectionObserver((entries,obs)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        el.classList.add('dm4-show');
+        obs.unobserve(el);
+      }
+    });
+  },{threshold:0.2}).observe(el);
+});
+  </script>
+
+
+<section class="nx8-clients-section">
+
+    <!-- Capsule Heading -->
+    <div class="nx8-heading-wrap nx8-animate">
+      <div class="nx8-heading-capsule">
+        <span>Clients We’ve Worked With</span>
+      </div>
+    </div>
+  
+    <!-- ROW 1 (Right Scroll) -->
+    <div class="nx8-marquee nx8-right">
+      <div class="nx8-track">
+        <img src="./r1.webp">
+        <img src="./r2.webp">
+        <img src="./r3.webp">
+        <img src="./r4.webp">
+        <img src="./r5.webp">
+  
+        <!-- duplicate for infinite -->
+        <img src="./r1.webp">
+        <img src="./r2.webp">
+        <img src="./r3.webp">
+        <img src="./r4.webp">
+        <img src="./r5.webp">
+      </div>
+    </div>
+  
+    <!-- ROW 2 (Left Scroll) -->
+    <div class="nx8-marquee nx8-left">
+      <div class="nx8-track">
+        <img src="./r6.webp">
+        <img src="./r7.webp">
+        <img src="./r8.webp">
+        <img src="./r9.webp">
+        <img src="./r10.webp">
+  
+        <!-- duplicate -->
+        <img src="./r6.webp">
+        <img src="./r7.webp">
+        <img src="./r8.webp">
+        <img src="./r9.webp">
+        <img src="./r10.webp">
+      </div>
+    </div>
+  
+  </section>
+
+  <style>
+    /* ===== SECTION ===== */
+.nx8-clients-section{
+  background:#0b0f0c;
+  padding:80px 0;
+  overflow:hidden;
+  font-family:'Poppins',sans-serif;
+}
+
+/* ===== HEADING ===== */
+.nx8-heading-wrap{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.nx8-heading-capsule{
+  display:inline-block;
+  padding:10px 35px;
+  border-radius:50px;
+  color:#00ff99;
+  border:1px solid rgba(0,255,150,0.4);
+  background:rgba(0,255,150,0.05);
+}
+
+/* ===== MARQUEE ===== */
+.nx8-marquee{
+  width:100%;
+  overflow:hidden;
+  position:relative;
+  margin:20px 0;
+}
+
+/* TRACK */
+.nx8-track{
+  display:flex;
+  gap:60px;
+  width:max-content;
+ 
+}
+
+/* LOGOS */
+.nx8-track img{
+  height:60px;
+  opacity:0.7;
+  transition:0.3s;
+  filter:grayscale(100%);
+  height:100px;
+}
+
+.nx8-track img:hover{
+  opacity:1;
+  filter:grayscale(0%);
+  transform:scale(1.1);
+}
+
+/* ANIMATIONS */
+.nx8-right .nx8-track{
+  animation:nx8-scroll-right 20s linear infinite;
+}
+
+.nx8-left .nx8-track{
+  animation:nx8-scroll-left 20s linear infinite;
+}
+
+@keyframes nx8-scroll-right{
+  from{ transform:translateX(-50%); }
+  to{ transform:translateX(0); }
+}
+
+@keyframes nx8-scroll-left{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .nx8-track{
+    gap:30px;
+  }
+
+  .nx8-track img{
+    height:40px;
+  }
+}
+    </style>
+
+    <script>
+        // Pause on hover
+document.querySelectorAll('.nx8-marquee').forEach(marquee=>{
+  marquee.addEventListener('mouseenter',()=>{
+    marquee.querySelector('.nx8-track').style.animationPlayState='paused';
+  });
+  marquee.addEventListener('mouseleave',()=>{
+    marquee.querySelector('.nx8-track').style.animationPlayState='running';
+  });
+});
+
+// Scroll reveal (reuse your nx7 animation)
+const nx8Observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('nx7-show');
+    }
+  });
+},{threshold:0.2});
+
+document.querySelectorAll('.nx8-animate').forEach(el=>{
+  nx8Observer.observe(el);
+});
+        </script>
+
+<section class="prx4-process">
+
+    <div class="prx4-container">
+  
+      <!-- HEADER -->
+      <div class="prx4-header prx4-reveal">
+        <span class="prx4-badge">Our Process</span>
+        <h2>How We Deliver Digital Excellence</h2>
+      </div>
+  
+      <!-- TIMELINE -->
+      <div class="prx4-timeline">
+  
+        <div class="prx4-line"></div>
+        <div class="prx4-progress"></div>
+  
+        <!-- STEP -->
+        <div class="prx4-step prx4-reveal">
+          <div class="prx4-node">01</div>
+          <div class="prx4-card">
+            <div class="prx4-icon">📊</div>
+            <h3>Research</h3>
+            <p>Deep market insights and competitor analysis to build strong foundations.</p>
+          </div>
+        </div>
+  
+        <div class="prx4-step prx4-reveal">
+          <div class="prx4-node">02</div>
+          <div class="prx4-card">
+            <div class="prx4-icon">💡</div>
+            <h3>Strategy</h3>
+            <p>Smart data-driven strategies crafted for measurable growth.</p>
+          </div>
+        </div>
+  
+        <div class="prx4-step prx4-reveal">
+          <div class="prx4-node">03</div>
+          <div class="prx4-card">
+            <div class="prx4-icon">🎨</div>
+            <h3>Design</h3>
+            <p>Creative UI/UX and branding that captures attention instantly.</p>
+          </div>
+        </div>
+  
+        <div class="prx4-step prx4-reveal">
+          <div class="prx4-node">04</div>
+          <div class="prx4-card">
+            <div class="prx4-icon">🚀</div>
+            <h3>Launch</h3>
+            <p>Executing campaigns across platforms with precision.</p>
+          </div>
+        </div>
+  
+        <div class="prx4-step prx4-reveal">
+          <div class="prx4-node">05</div>
+          <div class="prx4-card">
+            <div class="prx4-icon">📈</div>
+            <h3>Growth</h3>
+            <p>Continuous optimization to scale results and maximize ROI.</p>
+          </div>
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  </section>
+
+  <style>
+.prx4-process{
+  padding:140px 20px;
+  /* background:radial-gradient(circle at top,#0f172a,#020617); */
+  color:#fff;
+  font-family:Poppins,sans-serif;
+}
+
+.prx4-container{max-width:1400px;margin:auto;}
+
+/* HEADER */
+.prx4-header{text-align:center;margin-bottom:100px;}
+.prx4-badge{
+  padding:10px 25px;
+  border-radius:50px;
+  background:#1a5f1a;
+  display:inline-block;
+  margin-bottom:15px;
+}
+.prx4-header h2{font-size:40px;}
+
+/* TIMELINE */
+.prx4-timeline{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:40px; /* spacing */
+  position:relative;
+}
+
+/* LINE */
+.prx4-line{
+  position:absolute;
+  top:50px;
+  left:0;
+  width:100%;
+  height:3px;
+  background:#1a5f1a;
+}
+.prx4-progress{
+  position:absolute;
+  top:50px;
+  left:0;
+  height:3px;
+  width:0%;
+  background:radial-gradient(circle at top,#6cff6c,#1a5f1a);
+  box-shadow:0 0 20px #1a5f1a;
+}
+
+/* STEP */
+.prx4-step{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* NODE */
+.prx4-node{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:radial-gradient(circle at top,#6cff6c,#1a5f1a);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  margin-bottom:25px;
+  box-shadow:0 0 25px #1a5f1a;
+}
+
+/* CARD (EQUAL SIZE) */
+.prx4-card{
+  width:100%;
+  height:260px; /* FIXED HEIGHT = EQUAL SIZE */
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+
+  padding:30px;
+  border-radius:20px;
+  background:radial-gradient(circle at top,#6cff6c,#1a5f1a);
+  backdrop-filter:blur(15px);
+
+  transition:0.4s;
+}
+
+.prx4-card:hover{
+  transform:translateY(-15px) scale(1.03);
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* ICON */
+.prx4-icon{
+  font-size:32px;
+  margin-bottom:12px;
+}
+
+/* TEXT */
+.prx4-card h3{font-size:20px;margin-bottom:8px;}
+.prx4-card p{font-size:14px;color:#ccc;}
+
+/* SCROLL */
+.prx4-reveal{
+  opacity:0;
+  transform:translateY(80px);
+  transition:0.8s ease;
+}
+.prx4-reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* RESPONSIVE */
+
+/* Laptop */
+@media(max-width:1100px){
+  .prx4-timeline{
+    grid-template-columns:repeat(3,1fr);
+  }
+  .prx4-line,.prx4-progress{display:none;}
+}
+
+/* Tablet */
+@media(max-width:768px){
+  .prx4-timeline{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .prx4-header h2{font-size:28px;}
+}
+
+/* Mobile */
+@media(max-width:480px){
+  .prx4-timeline{
+    grid-template-columns:1fr;
+  }
+  .prx4-card{
+    height:auto;
+    padding:25px;
+  }
+}
+  </style>
+
+<script>
+(function(){
+
+    const section = document.querySelector('.prx4-process');
+    if(!section) return;
+  
+    const items = section.querySelectorAll('.prx4-reveal');
+    const progress = section.querySelector('.prx4-progress');
+  
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+  
+          /* STAGGER */
+          items.forEach((el,i)=>{
+            setTimeout(()=>{
+              el.classList.add('show');
+            }, i * 200);
+          });
+  
+          /* PROGRESS LINE */
+          let width = 0;
+          const fill = setInterval(()=>{
+            width += 2;
+            progress.style.width = width + "%";
+            if(width >= 100) clearInterval(fill);
+          },20);
+  
+          observer.disconnect();
+        }
+      });
+    },{threshold:0.3});
+  
+    observer.observe(section);
+  
+  })();
+
+</script>
+
+        <section class="nx13-hero">
+
+    <div class="nx13-container">
+  
+      <!-- LEFT CONTENT -->
+      <div class="nx13-left nx13-animate">
+  
+        <h1 class="nx13-heading">
+          We provide digital services 
+  
+          <span class="nx13-capsule">
+            <img src="./bac1.webp" alt="">
+          </span>
+  
+          <span class="nx13-highlight">for you</span>
+        </h1>
+  
+        <p class="nx13-subtext">
+          We help businesses grow with innovative digital solutions including 
+          branding, marketing, and web development. Our team delivers premium 
+          results with modern technology and creative strategies.
+        </p>
+  
+        <!-- BUTTONS -->
+        <div class="nx13-buttons">
+          <a href="./404.html" class="nx13-btn primary">Get Started</a>
+          <a href="./404.html" class="nx13-btn secondary">View Services</a>
+        </div>
+  
+      </div>
+  
+      <!-- RIGHT IMAGE -->
+      <div class="nx13-right nx13-animate">
+        <img src="./di1.webp" alt="">
+      </div>
+  
+    </div>
+  
+  </section>
+
+  <style>
+    /* ===== SECTION ===== */
+.nx13-hero{
+  background:#0b0f0c;
+  padding:120px 20px;
+  font-family:'Poppins',sans-serif;
+}
+
+.nx13-container{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:50px;
+}
+
+/* ===== LEFT ===== */
+.nx13-left{
+  flex:1;
+}
+
+/* ===== HEADING ===== */
+.nx13-heading{
+  color:#fff;
+  font-size:65px;
+  font-weight:500;
+  line-height:1.2;
+}
+
+/* CAPSULE */
+.nx13-capsule{
+  display:inline-block;
+  width:140px;
+  height:60px;
+  border-radius:40px;
+  overflow:hidden;
+  vertical-align:middle;
+  margin:0 10px;
+}
+
+.nx13-capsule img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* HIGHLIGHT */
+.nx13-highlight{
+  color:#00ff99;
+}
+
+/* ===== TEXT ===== */
+.nx13-subtext{
+  margin-top:20px;
+  color:#aaa;
+  font-size:16px;
+  line-height:1.7;
+  max-width:500px;
+}
+
+/* ===== BUTTONS ===== */
+.nx13-buttons{
+  margin-top:30px;
+  display:flex;
+  gap:15px;
+}
+
+.nx13-btn{
+  padding:14px 28px;
+  border-radius:40px;
+  text-decoration:none;
+  font-size:14px;
+  transition:0.3s;
+}
+
+/* PRIMARY */
+.nx13-btn.primary{
+  background:#00ff99;
+  color:#000;
+}
+
+.nx13-btn.primary:hover{
+  background:#00ff99;
+}
+
+/* SECONDARY */
+.nx13-btn.secondary{
+  border:1px solid #00ff99;
+  color:#00ff99;
+}
+
+.nx13-btn.secondary:hover{
+  background:#00ff99;
+  color:#000;
+}
+
+/* ===== RIGHT IMAGE ===== */
+.nx13-right{
+  flex:1;
+}
+
+.nx13-right img{
+  width:100%;
+  border-radius:20px;
+}
+
+/* ===== ANIMATION ===== */
+.nx13-animate{
+  opacity:0;
+  transform:translateY(60px);
+  transition:1s ease;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:992px){
+  .nx13-container{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .nx13-heading{
+    font-size:45px;
+  }
+
+  .nx13-buttons{
+    justify-content:center;
+  }
+}
+
+@media(max-width:600px){
+  .nx13-heading{
+    font-size:32px;
+  }
+
+  .nx13-capsule{
+    width:90px;
+    height:40px;
+  }
+}
+  </style>
+
+  <script>
+    const elements = document.querySelectorAll('.nx13-animate');
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.style.opacity = 1;
+      entry.target.style.transform = "translateY(0)";
+    }
+  });
+},{threshold:0.2});
+
+elements.forEach(el=>observer.observe(el));
+  </script>
+
+
+
+<!-- ================= FOOTER ================= -->
+<footer class="bio-footer">
+
+    <div class="footer-container">
+  
+      <!-- LOGO + ABOUT -->
+  <div class="footer-col">
+    <img src="./logo.webp" class="footer-logo">
+  
+    <p>
+      Advancing biotechnology through innovation and research.
+      Transforming healthcare and life sciences globally.
+    </p>
+  
+    <!-- FOLLOW US -->
+    <h4 class="follow-title">Follow Us</h4>
+  
+    <div class="social-icons">
+      <a href="404.html"><i class="ri-facebook-fill"></i></a>
+      <a href="404.html"><i class="ri-twitter-x-line"></i></a>
+      <a href="404.html"><i class="ri-instagram-line"></i></a>
+      <a href="404.html"><i class="ri-linkedin-fill"></i></a>
+     
+    </div>
+  </div>
+  
+      <!-- QUICK LINKS -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+            
+      <li><a href="./index.html">HOME</a></li>
+        <li><a href="./about.html">ABOUT</a></li>
+            <li><a href="./service.html">SERVICES</a></li>
+                
+                    <li><a href="./contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+  
+      <!-- LAB SERVICES -->
+      <div class="footer-col">
+        <h4>Our Process</h4>
+        <ul>
+            <li><a href="404.html">Solutions</a></li>
+            <li><a href="404.html">Expert Team</a></li>
+            <li><a href="404.html">Driven Insights</a></li>
+            <li><a href="404.html">Data Encryption</a></li>
+            <li><a href="404.html">Ongoing support</a></li>
+        </ul>
+      </div>
+  
+      <!-- LOCATION -->
+      <div class="footer-col">
+        <h4>Location</h4>
+        <div class="map">
+          <iframe src="https://www.google.com/maps?q=Salem%20Tamil%20Nadu&output=embed"></iframe>
+        </div>
+      </div>
+  
+      <!-- SUBSCRIBE -->
+      <div class="footer-col">
+        <h4>Research Updates</h4>
+  
+        <div class="subscribe">
+          <input type="email" id="email" placeholder="Enter Email">
+          <button onclick="subscribe()">Subscribe</button>
+        </div>
+  
+        <span id="msg"></span>
+      </div>
+  
+    </div>
+  
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+      <p>
+        © 2026 BioGen | All Rights Reserved |
+        <a href="404.html">Privacy Policy</a> |
+        <a href="404.html">Terms & Conditions</a>
+      </p>
+    </div>
+  
+  </footer>
+  
+  <style>
+    /* FOLLOW TITLE */
+  .follow-title {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #00ff99;
+  }
+  
+  /* SOCIAL ICONS */
+  .social-icons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  /* ICON STYLE */
+  .social-icons a {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+    font-size: 18px;
+    color: #fff;
+    transition: 0.3s ease;
+  }
+  
+  /* HOVER EFFECT (BIO GLOW) */
+  .social-icons a:hover {
+    /* background: #00f7ff; */
+    color: #000;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 0 15px #00ff99;
+  }
+  
+  /* MOBILE CENTER ALIGN */
+  @media (max-width: 480px) {
+    .social-icons {
+      justify-content: center;
+    }
+  
+    .follow-title {
+      text-align: center;
+    }
+  }
+    /* PRE FOOTER */
+  .pre-footer {
+    background: #0a0f1a;
+    padding: 40px 20px;
+  }
+  
+  .pre-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .pre-box {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .pre-box i {
+    font-size: 30px;
+    color: #00ff99;
+    margin-bottom: 10px;
+  }
+  
+  /* FOOTER */
+  .bio-footer {
+    background: #05070d;
+    color: #fff;
+    padding: 60px 20px;
+  }
+  
+  .footer-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+  }
+  
+  /* LOGO */
+  .footer-logo {
+    width: 140px;
+    margin-bottom: 10px;
+  }
+  
+  /* TEXT */
+  .footer-col p {
+    font-size: 14px;
+    color: #aaa;
+  }
+  
+  /* LINKS */
+  .footer-col h4 {
+    margin-bottom: 15px;
+    color: #00ff99;
+  }
+  
+  .footer-col ul {
+    list-style: none;
+  }
+  
+  .footer-col ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-col ul li a {
+    color: #aaa;
+    text-decoration: none;
+  }
+  
+  .footer-col ul li a:hover {
+    color: #00ff99;
+  }
+  
+  /* SOCIAL */
+  .social-icons a {
+    margin-right: 10px;
+    font-size: 20px;
+    color: #fff;
+  }
+  
+  .social-icons a:hover {
+    color: #00ff99;
+  }
+  
+  /* MAP */
+  .map iframe {
+    width: 100%;
+    height: 180px;
+    border: 0;
+    border-radius: 10px;
+  }
+  
+  /* SUBSCRIBE */
+  .subscribe {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .subscribe input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+  }
+  
+  .subscribe button {
+    padding: 10px;
+    background: #00ff99;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* MESSAGE */
+  #msg {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+  }
+  
+  /* BOTTOM */
+  .footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    border-top: 1px solid #222;
+    padding-top: 15px;
+    font-size: 14px;
+  }
+  
+  .footer-bottom a {
+    color: #00ff99;
+    text-decoration: none;
+  }
+  
+  /* ================= RESPONSIVE ================= */
+  
+  /* TABLET */
+  @media (max-width: 1024px) {
+    .footer-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .footer-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .subscribe {
+      flex-direction: column;
+    }
+  }
+  
+  /* SMALL MOBILE */
+  @media (max-width: 480px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  
+    .social-icons {
+      margin-top: 10px;
+    }
+  }
+    </style>
+  
+  <script>
+    function subscribe() {
+      let email = document.getElementById("email").value;
+      let msg = document.getElementById("msg");
+    
+      let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    
+      if (email === "" || !email.match(pattern)) {
+        msg.style.color = "red";
+        msg.innerText = "Please fill correct mail id";
+        return;
+      }
+    
+      setTimeout(() => {
+      window.location.href = "404.html";
+    });
+    }
+    </script>
+    </body>
+    </html>
