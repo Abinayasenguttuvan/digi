@@ -271,10 +271,137 @@
   }
   </script>
     
-    
+    <!-- PRELOADER -->
+<div id="preloader">
+  <div class="loader-wrapper">
+
+    <!-- LOGO -->
+    <div class="logo-box">
+      <img src="./logo.webp" alt="logo" class="logo-img">
+    </div>
+
+    <!-- PROGRESS RING -->
+    <svg class="progress-ring" width="120" height="120">
+      <circle class="ring-bg" cx="60" cy="60" r="52"/>
+      <circle class="ring-progress" cx="60" cy="60" r="52"/>
+    </svg>
+
+    <!-- PERCENT -->
+    <div class="loading-text">
+      <span id="progress-count">0</span>%
+    </div>
+
+  </div>
+</div>
 <style>
+  /* PRELOADER BASE */
+#preloader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #266e65, #2d610a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+  overflow: hidden;
+}
 
+/* GLASS CONTAINER */
+.loader-wrapper {
+  position: relative;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 20px;
+}
 
+/* LOGO */
+.logo-box {
+  position: relative;
+  z-index: 2;
+}
+
+.logo-img {
+  width: 80px;
+  animation: logoZoom 2s ease-in-out infinite alternate,
+             glow 2s infinite;
+}
+
+/* SVG RING */
+.progress-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: rgba(255,255,255,0.1);
+  stroke-width: 6;
+}
+
+.ring-progress {
+  fill: none;
+  stroke: #348661;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 326;
+  stroke-dashoffset: 326;
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+/* PERCENT TEXT */
+.loading-text {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 22px;
+  letter-spacing: 2px;
+  animation: fade 1.5s infinite;
+}
+
+/* ANIMATIONS */
+@keyframes logoZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 5px #5f5cff); }
+  100% { filter: drop-shadow(0 0 20px #5f5cff); }
+}
+
+@keyframes fade {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* FADE OUT */
+.preloader-hide {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.8s ease;
+}
+
+/* RESPONSIVE */
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .logo-img { width: 60px; }
+  .loading-text { font-size: 18px; }
+  .loader-wrapper { padding: 25px; }
+}
+
+/* TABLET */
+@media (max-width: 768px) {
+  .logo-img { width: 70px; }
+}
+
+/* LAPTOP */
+@media (max-width: 1200px) {
+  .logo-img { width: 75px; }
+}
 /* ================= HERO ================= */
 .hero{
   position:relative;
@@ -365,6 +492,35 @@ h1{
 
 
 <script>
+
+
+let progress = 0;
+const progressCount = document.getElementById("progress-count");
+const progressRing = document.querySelector(".ring-progress");
+const radius = 52;
+const circumference = 2 * Math.PI * radius;
+
+progressRing.style.strokeDasharray = circumference;
+
+function setProgress(percent) {
+  const offset = circumference - (percent / 100) * circumference;
+  progressRing.style.strokeDashoffset = offset;
+}
+
+const interval = setInterval(() => {
+  progress++;
+  progressCount.textContent = progress;
+  setProgress(progress);
+
+  if (progress >= 100) {
+    clearInterval(interval);
+
+    setTimeout(() => {
+      document.getElementById("preloader").classList.add("preloader-hide");
+    }, 500);
+  }
+}, 25);
+
 
 /* AUTO TYPING */
 const texts = ["Grow Your Business 🌱","Boost Your Brand 🚀","Scale Faster ⚡"];
